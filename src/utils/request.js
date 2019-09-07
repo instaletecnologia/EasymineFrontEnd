@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * request 网络请求工具
  * 更详细的 api 文档: https://github.com/umijs/umi-request
@@ -44,13 +45,17 @@ const errorHandler = error => {
 
   return response;
 };
-/**
- * 配置request请求时的默认参数
- */
 
 const request = extend({
   errorHandler,
-  // 默认错误处理
-  credentials: 'include', // 默认请求是否带上cookie
+  // credentials: 'include',
+  prefix: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    scope: '*',
+    grant_type: '',
+    'X-Requested-With': 'XMLHttpRequest',
+    Accept: 'application/json',
+  },
 });
 export default request;

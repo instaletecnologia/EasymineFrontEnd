@@ -12,16 +12,17 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import GlobalFooter from '@/components/GlobalFooter';
 import { isAntDesignPro } from '@/utils/utils';
-import logo from '../assets/instale.png';
+import logo from '../assets/logo.png';
 
 /**
  * use Authorized check all menu item
  */
-const menuDataRender = menuList =>
-  menuList.map(item => {
+const menuDataRender = menuList => {
+  return menuList.map(item => {
     const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
     return Authorized.check(item.authority, localItem, null);
   });
+};
 
 const BasicLayout = props => {
   const { dispatch, children, settings } = props;

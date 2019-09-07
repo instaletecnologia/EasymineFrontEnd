@@ -1,5 +1,5 @@
 export default {
-  'GET /api/currentUser': {
+  'GET api/currentUser': {
     id: 1,
     name: 'Usuário instale',
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
