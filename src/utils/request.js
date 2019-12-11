@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable func-names */
 /* eslint-disable no-undef */
 /**
  * request 网络请求工具
@@ -5,6 +7,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -32,10 +35,22 @@ const errorHandler = error => {
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
-    notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
-    });
+
+    switch (status) {
+      case 401:
+        // @HACK
+        // eslint-disable-next-line no-underscore-dangle
+        window.g_app._store.dispatch({
+          type: 'login/logout',
+        });
+        return response;
+
+      default:
+        notification.error({
+          message: `请求错误 ${status}: ${url}`,
+          description: errorText,
+        });
+    }
   } else if (!response) {
     notification.error({
       description: '您的网络发生异常，无法连接服务器',
@@ -46,16 +61,24 @@ const errorHandler = error => {
   return response;
 };
 
-const request = extend({
-  errorHandler,
-  // credentials: 'include',
-  prefix: API_URL,
-  headers: {
+const request = function(arg1, arg2) {
+  const token = localStorage.getItem('token');
+  let headers = {
     'Content-Type': 'application/json',
     scope: '*',
     grant_type: '',
     'X-Requested-With': 'XMLHttpRequest',
     Accept: 'application/json',
-  },
-});
+  };
+
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  return extend({
+    errorHandler,
+    // credentials: 'include',
+    prefix: API_URL,
+    headers,
+  })(arg1, arg2);
+};
+
 export default request;
