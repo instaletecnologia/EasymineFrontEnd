@@ -1,76 +1,32 @@
-import React from 'react';
-import { CURRENT } from './renderAuthorize'; // eslint-disable-next-line import/no-cycle
+import { useSelector } from 'dva';
+import _ from 'lodash';
+// import { CURRENT } from './renderAuthorize';
 
-import PromiseRender from './PromiseRender';
-
-/**
- * 通用权限检查方法
- * Common check permissions method
- * @param { 权限判定 | Permission judgment } authority
- * @param { 你的权限 | Your permission description } currentAuthority
- * @param { 通过的组件 | Passing components } target
- * @param { 未通过的组件 | no pass components } Exception
- */
 const checkPermissions = (authority, currentAuthority, target, Exception) => {
-  // 没有判定权限.默认查看所有
-  // Retirement authority, return target;
-  if (!authority) {
-    return target;
-  } // 数组处理
+  // Don't have authority to verify
+  if (!authority) return target;
 
-  if (Array.isArray(authority)) {
-    if (Array.isArray(currentAuthority)) {
-      if (currentAuthority.some(item => authority.includes(item))) {
-        return target;
-      }
-    } else if (authority.includes(currentAuthority)) {
-      return target;
-    }
+  if (!_.isArray(authority)) throw new Error('authority need to be an array');
 
-    return Exception;
-  } // string 处理
+  const key = authority[0];
+  const value = authority[1];
 
-  if (typeof authority === 'string') {
-    if (Array.isArray(currentAuthority)) {
-      if (currentAuthority.some(item => authority === item)) {
-        return target;
-      }
-    } else if (authority === currentAuthority) {
-      return target;
-    }
-
-    return Exception;
-  } // Promise 处理
-
-  if (authority instanceof Promise) {
-    return <PromiseRender ok={target} error={Exception} promise={authority} />;
-  } // Function 处理
-
-  if (typeof authority === 'function') {
-    try {
-      const bool = authority(currentAuthority); // 函数执行后返回值是 Promise
-
-      if (bool instanceof Promise) {
-        return <PromiseRender ok={target} error={Exception} promise={bool} />;
-      }
-
-      if (bool) {
-        return target;
-      }
-
-      return Exception;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  throw new Error('unsupported parameters');
+  return currentAuthority[key].indexOf(value) !== -1 ? target : Exception;
 };
 
 export { checkPermissions };
 
 function check(authority, target, Exception) {
-  return checkPermissions(authority, CURRENT, target, Exception);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const user = useSelector(state => state.user.currentUser);
+  const CURRENT_AUTHORITY = {
+    AREA: _.get(user, 'Areas', []).map(val => val.toString()),
+    MODULE: _.get(user, 'Modulos', []).map(val => val.toString()),
+    DIRECTORY: _.get(user, 'Diretorios', []).map(val => val.toString()),
+    FUNCTIONALITY: _.get(user, 'Funcionalidades', []).map(val => val.toString()),
+  };
+
+  return checkPermissions(authority, CURRENT_AUTHORITY, target, Exception);
 }
 
 export default check;

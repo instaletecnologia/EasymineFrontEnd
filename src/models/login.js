@@ -17,8 +17,6 @@ const Model = {
 
       const loginData = {
         token: response.token,
-        type: 'account',
-        currentAuthority: 'user',
         status: response.token ? true : 'error',
       };
 
