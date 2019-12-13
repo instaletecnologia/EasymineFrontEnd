@@ -5,6 +5,7 @@ const PositionModel = {
   state: {
     coords: [],
     equipments: [],
+    tests: 'nossa doido',
   },
   effects: {
     *loadCoords(_, { call, put }) {
