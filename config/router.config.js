@@ -1,3 +1,5 @@
+const OPERATION_MODULE = require('../src/modules/Operation/route.json');
+
 export default [
   {
     path: '/user',
@@ -20,7 +22,6 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
-    authority: ['admin', 'user'],
     routes: [
       {
         path: '/',
@@ -29,57 +30,10 @@ export default [
         component: './Welcome',
       },
 
-      // Geoprocess
       {
-        path: '/geoprocess',
-        name: 'Geoprocessamento',
-        icon: 'global',
-        routes: [
-          {
-            path: '/geoprocess/position',
-            name: 'Posição',
-            icon: 'environment',
-            component: '../pages/GeoProcess/pages/Position',
-          },
-        ],
-      },
-
-      /**
-       * MODULES
-       */
-
-      {
-        path: '/operation',
-        name: 'Operação',
-        icon: 'global',
-        routes: [
-          {
-            path: '/operation/registers',
-            name: 'Cadastros',
-            icon: 'database',
-            routes: [
-              {
-                path: '/operation/registers/activites',
-                name: 'Atividades',
-                icon: 'branches',
-                component: '../modules/Operation/pages/registers/RegistersActivities',
-              },
-            ],
-          },
-          {
-            path: '/operation/controllers',
-            name: 'Controles',
-            icon: 'apartment',
-            routes: [
-              {
-                path: '/operation/controllers/flow',
-                name: 'Fluxo',
-                icon: 'branches',
-                component: '../modules/Operation/pages/controllers/Flow',
-              },
-            ],
-          },
-        ],
+        path: '/basic',
+        name: 'Básico',
+        routes: [OPERATION_MODULE],
       },
 
       /*
