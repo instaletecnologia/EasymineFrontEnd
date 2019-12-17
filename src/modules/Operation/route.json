@@ -15,7 +15,7 @@
           "name": "Atividades",
           "authority": ["FUNCTIONALITY", "64"],
           "icon": "branches",
-          "component": "../../modules/Operation/pages/registers/RegistersActivities"
+          "component": "../modules/Operation/pages/registers/RegistersActivities"
         }
       ]
     }
