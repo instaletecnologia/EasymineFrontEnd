@@ -2,29 +2,31 @@ import React, { memo } from 'react';
 import { Button, Modal, Input, Form } from 'antd';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import { useSelector, useDispatch } from 'dva';
+import _ from 'lodash';
 
 import SelectEquipamentTag from '@/components/SelectEquipamentTag';
 import SelectMaintenanceOccurrence from '@/components/SelectMaintenanceOccurrence';
 import InputNumberPlate from '@/components/InputNumberPlate';
 import SelectUserMechanical from '@/components/SelectUserMechanical';
 import InputNumberHorimetro from '@/components/InputNumberHorimetro';
+import model from './model';
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-function AddMaintenance({ form, maintenanceType }) {
+function AddMaintenance({ form, onFormInstance = () => ({}) }) {
   const dispatch = useDispatch();
+  const maintenanceType = useSelector(state => _.get(state[model.namespace], 'params.maintenanceType'));
   const { getFieldDecorator } = form;
+  const equipmentId = form.getFieldValue('EquipamentoID');
 
-  // function onChange(value) {
-  //  console.log(`selected ${value}`);
-  // }
+  onFormInstance(form);
 
   return (
     <Form>
       <div>
         <FormItem>
-          {getFieldDecorator('Tag', {
+          {getFieldDecorator('EquipamentoID', {
             rules: [
               {
                 required: true,
@@ -75,7 +77,7 @@ function AddMaintenance({ form, maintenanceType }) {
                 message: formatMessage({ id: 'ocorrence.Descrition' }),
               },
             ],
-          })(<SelectMaintenanceOccurrence maintenanceType={maintenanceType} />)}
+          })(<SelectMaintenanceOccurrence maintenanceType={maintenanceType} equipmentId={equipmentId} />)}
         </FormItem>
 
         <FormItem>
@@ -92,4 +94,7 @@ function AddMaintenance({ form, maintenanceType }) {
     </Form>
   );
 }
-export default memo(Form.create({ name: 'AddMaintenance' })(AddMaintenance));
+
+const AddMaintenanceForm = Form.create({ name: 'AddMaintenance' })(AddMaintenance);
+
+export default memo(AddMaintenanceForm);

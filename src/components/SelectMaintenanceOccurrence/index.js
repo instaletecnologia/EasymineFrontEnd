@@ -1,29 +1,36 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Select } from 'antd';
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
+import { fetchSelect } from './services/api';
 
 const { Option } = Select;
 
-function SelectMaintenanceOccurrence({ onChange, value }) {
-  const data = useSelector(state => state.SelectEquipamentTag.data);
-  const loading = useSelector(state => state.loading.effects['SelectEquipamentTag/fetch']);
-  const dispatch = useDispatch();
+function SelectMaintenanceOccurrence({ onChange, equipmentId = null, maintenanceType = null }) {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
 
-  function loadData() {
-    dispatch({
-      type: 'SelectEquipamentTag/fetch',
-    });
+  async function loadData() {
+    onChange(null);
+    setData([]);
+
+    if (maintenanceType && equipmentId) {
+      setLoading(true);
+      const result = await fetchSelect({ maintenanceType, equipmentId });
+      setData(result);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [equipmentId, maintenanceType]);
 
   return (
     <>
       <Select
         showSearch
+        disabled={!maintenanceType || !equipmentId || loading}
         style={{ width: 300 }}
         placeholder={formatMessage({ id: 'ocorrence.Descrition' })}
         optionFilterProp="children"
@@ -34,7 +41,9 @@ function SelectMaintenanceOccurrence({ onChange, value }) {
         loading={loading}
       >
         {data.map(item => (
-          <Option key={item.EquipamentoID}>{`${item.TagPrefixo}-${item.TagNumero}`} </Option>
+          <Option key={item.OcorrenciaID} value={item.OcorrenciaID}>
+            {item.Descricao}
+          </Option>
         ))}
       </Select>
     </>

@@ -5,7 +5,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 
 const { Text } = Typography;
 
-function InputNumberHorimetro({ value }) {
+function InputNumberHorimetro({ onChange, value }) {
   return (
     <>
       <Text strong> {formatMessage({ id: 'equipment.Horimeter' })} </Text>
@@ -14,6 +14,7 @@ function InputNumberHorimetro({ value }) {
         min={0}
         max={100}
         parser={value => value.replace(/\D/g, '')}
+        onChange={onChange}
       />
     </>
   );

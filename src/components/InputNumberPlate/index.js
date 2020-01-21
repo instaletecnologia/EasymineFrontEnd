@@ -6,7 +6,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 
 const { Text } = Typography;
 
-function InputNumberPlate({ UserPermissionID }) {
+function InputNumberPlate({ onChange: OnChange, UserPermissionID }) {
   const data = useSelector(state => state.InputNumberPlate.data);
   const [name, setName] = useState('');
 
@@ -23,22 +23,24 @@ function InputNumberPlate({ UserPermissionID }) {
   }, []);
 
   function onChange(value) {
+    let name = '';
+    let userId = null;
     try {
       if (value) {
-        if (UserPermissionID) {
-          setName(
-            data
-              .filter(el => el.Chapa === value && el.UsuarioPermissaoID === UserPermissionID)[0]
-              .Nome.substring(0, 10),
-          );
-        }
-        setName(data.filter(el => el.Chapa === value)[0].Nome.substring(0, 10));
+        const user = data.filter(el => el.Chapa === value)[0];
+        name = user.Nome.substring(0, 10);
+        userId = user.UsuarioID;
       } else {
-        setName('');
+        name = '';
+        userId = null;
       }
     } catch (e) {
-      setName('');
+      name = '';
+      userId = null;
     }
+
+    OnChange(userId);
+    setName(name);
   }
   return (
     <>

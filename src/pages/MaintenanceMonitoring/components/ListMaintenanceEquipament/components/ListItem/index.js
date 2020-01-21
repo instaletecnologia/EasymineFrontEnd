@@ -5,37 +5,24 @@ import { formatMessage } from 'umi-plugin-react/locale';
 
 import moment from 'moment';
 
+import { openMaintenance } from '@/modules/Maintenance/components/ModalMaintenance';
+
 const { Text } = Typography;
 
 function ListItem({ data }) {
   const dispatch = useDispatch();
 
   function handleVisibleDetailing() {
-    console.log('data correta', data);
-    dispatch({
-      type: 'ModalMaintenanceDetailing/updateVisible',
-      payload: true,
-    });
-    dispatch({
-      type: 'ModalMaintenanceDetailing/changeInitialValue',
-      payload: data,
-    });
+    dispatch(openMaintenance(data));
   }
 
   function handleVisibleRelease() {
-    dispatch({
-      type: 'ModalReleaseOfEquipmentForOperation/updateVisible',
-      payload: true,
-    });
-    dispatch({
-      type: 'ModalReleaseOfEquipmentForOperation/changeInitialValue',
-      payload: data,
-    });
+    alert('fazer o mesmo aqui');
   }
 
   const IconTextDetailing = () => (
     <span>
-      <Button type="primary" ghost onClick={() => handleVisibleDetailing()}>
+      <Button type="primary" ghost onClick={handleVisibleDetailing}>
         <Icon type="snippets" />
         {formatMessage({ id: 'component.tagSelect.Detail' })}
       </Button>
@@ -44,7 +31,7 @@ function ListItem({ data }) {
 
   const IconTextRelease = () => (
     <span>
-      <Button type="primary" ghost onClick={() => handleVisibleRelease()}>
+      <Button type="primary" ghost onClick={handleVisibleRelease}>
         <Icon type="like-o" />
         {formatMessage({ id: 'component.tagSelect.Release' })}
       </Button>

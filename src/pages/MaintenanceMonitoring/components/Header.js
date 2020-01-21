@@ -6,7 +6,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 const { Text } = Typography;
 const { Countdown } = Statistic;
 
-function Header({ data }) {
+function Header({ data = [] }) {
   const loading = useSelector(state => state.loading.effects['MaintenanceMonitoring/fetch']);
   const [DataEquipamentClassification, setDataEquipamentClassification] = useState([]);
 

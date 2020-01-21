@@ -11,22 +11,6 @@ function MaintenanceMonitoring() {
   const [dataHMC, setDataHMC] = useState([]);
   const [dataHMP, setDataHMP] = useState([]);
 
-  // const dataEquipamentClassification = [
-  //  {
-  //    "description": "Transporte",
-  //    "count": 6,
-  //  },
-  //  {
-  //    "description": "Apoio",
-  //    "count": 16,
-  //  },
-  //  {
-  //    "description": "Carga",
-  //    "count": 20,
-  //  },
-  //
-  // ];
-
   let timer = null;
   const dispatch = useDispatch();
 
