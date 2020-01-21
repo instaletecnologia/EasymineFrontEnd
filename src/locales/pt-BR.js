@@ -5,6 +5,11 @@ import pwa from './pt-BR/pwa';
 import settingDrawer from './pt-BR/settingDrawer';
 import settings from './pt-BR/settings';
 import login from './pt-BR/login';
+import user from './pt-BR/user';
+import maintenance from './pt-BR/maintenance';
+import equipment from './pt-BR/equipment';
+import expressions from './pt-BR/expressions';
+import ocorrence from './pt-BR/ocorrence';
 
 export default {
   'navBar.lang': 'Idiomas',
@@ -19,4 +24,9 @@ export default {
   ...pwa,
   ...component,
   ...login,
+  ...user,
+  ...maintenance,
+  ...equipment,
+  ...expressions,
+  ...ocorrence,
 };
