@@ -55,6 +55,8 @@ export default {
   'app.settings.notification.todo': 'Notificação de To-do',
   'app.settings.notification.todo-description':
     'A lista de to-do será notificada na forma de uma estação de letra',
+  'app.settings.Note': 'Observação',
   'app.settings.open': 'Aberto',
   'app.settings.close': 'Fechado',
+  'app.settings.notification.success': 'Sucesso',
 };

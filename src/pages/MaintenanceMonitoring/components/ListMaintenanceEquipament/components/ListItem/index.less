@@ -1,5 +1,15 @@
 @import '~antd/es/style/themes/default.less';
+.div > * {
+  border-radius: 4px;
+  box-shadow: @shadow-1-down;
+  padding-left: 5%;
+}
 
-.demo-loadmore-list {
-  min-height: 350px;
+@media screen and (max-width: @screen-xs) {
+  .div {
+    width: 100% !important;
+  }
+  .div > * {
+    border-radius: 0 !important;
+  }
 }

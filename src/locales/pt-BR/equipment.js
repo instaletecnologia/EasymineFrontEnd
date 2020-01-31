@@ -1,5 +1,5 @@
 export default {
   'equipment.fleet': 'Frota',
   'equipment.tag.placeholder': 'Selecione o equipamento',
-  'equipment.Horimeter': 'Horimeter',
+  'equipment.Horimeter': 'Digite o horimetro',
 };

@@ -7,6 +7,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { formatMessage } from 'umi-plugin-react/locale';
 
 const codeMessage = {
   200: 'The server successfully returned the requested data. ',
@@ -29,16 +30,24 @@ const codeMessage = {
  * 异常处理程序
  */
 
-const errorHandler = error => {
+const errorHandler = async error => {
   const { response } = error;
-
-  console.log(error);
-
+  const dataResult = await response.json();
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
 
     switch (status) {
+      case 200:
+        return notification.success({
+          message: formatMessage({ id: 'app.settings.notification.success' }),
+          description: response.message,
+        });
+      case 404:
+        return notification.warning({
+          message: `${status}`,
+          description: formatMessage({ id: `${dataResult.message}` }),
+        });
       case 401:
         // @HACK
         // eslint-disable-next-line no-underscore-dangle

@@ -29,7 +29,7 @@ function MaintenanceMonitoring() {
   }, []);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.length > 0) {
       setDataHMC(data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 3));
       setDataHMP(data.filter(el => el.idCategoriasTempo === 7 || el.ParentID === 7));
     }
@@ -41,14 +41,16 @@ function MaintenanceMonitoring() {
       <Row>
         <Col xs={12}>
           <ListMaintenanceEquipament
-            maintenanceType={formatMessage({ id: 'maintenance.corretive' })}
+            maintenanceType="HMC"
+            maintenanceTypeDescription={formatMessage({ id: 'maintenance.corretive' })}
             color="#DD7875"
             data={dataHMC}
           />
         </Col>
         <Col xs={12}>
           <ListMaintenanceEquipament
-            maintenanceType={formatMessage({ id: 'maintenance.preventive' })}
+            maintenanceType="HMP"
+            maintenanceTypeDescription={formatMessage({ id: 'maintenance.preventive' })}
             color=""
             data={dataHMP}
           />

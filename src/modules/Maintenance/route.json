@@ -5,17 +5,17 @@
   "icon": "global",
   "routes": [
     {
-      "path": "/maintenance/controls",
-      "name": "Controles",
+      "path": "/maintenance/components",
+      "name": "Componentes",
       "authority": ["DIRECTORY", "CONTROLES"],
       "icon": "database",
       "routes": [
         {
-          "path": "/maintenance/controls/release-of-equipment-for-operation/",
+          "path": "/maintenance/components/ModalMaintenanceRelease/",
           "name": "Liberação de equipamento para Operação",
           "authority": ["FUNCTIONALITY", "-27"],
           "icon": "branches",
-          "component": "../modules/Maintenance/controls/ReleaseOfEquipmentForOperation"
+          "component": "../modules/Maintenance/components/ModalMaintenanceRelease"
         }
       ]
     }

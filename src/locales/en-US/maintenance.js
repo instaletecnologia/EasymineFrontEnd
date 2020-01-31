@@ -7,4 +7,7 @@ export default {
   'maintenance.placeholder.FailureClass': 'Select failure class',
   'maintenance.placeholder.Maintenanceitem': 'Select item',
   'maintenance.select.Reason': 'Select reason',
+  'maintenance.select.Order': 'Select order',
+  'maintenance.error.release.WithoutOccurrence':
+    'There is no occurrence of the type Equipment released registered for the type of this equipment!',
 };

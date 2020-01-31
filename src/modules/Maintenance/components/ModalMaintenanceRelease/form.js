@@ -1,24 +1,33 @@
-import React, { memo } from 'react';
-import { Input, Form } from 'antd';
+import React, { memo, useEffect, useState } from 'react';
+import { Form, Input } from 'antd';
 import { formatMessage } from 'umi-plugin-react/locale';
 import { useSelector } from 'dva';
 import _ from 'lodash';
 
 import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
-import SelectMaintenanceOccurrence from '@/components/Maintenances/SelectMaintenanceOccurrence';
 import InputNumberPlate from '@/components/Users/InputNumberPlate';
+import SelectUserMechanical from '@/components/Maintenances/SelectUserMechanical';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
 import model from './model';
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-function AddMaintenance({ form, onFormInstance = () => ({}) }) {
-  const maintenanceType = useSelector(state =>
-    _.get(state[model.namespace], 'params.maintenanceType'),
-  );
-  const { getFieldDecorator } = form;
-  const equipmentId = form.getFieldValue('EquipamentoID');
+function MaintenanceRelease({ form, onFormInstance = () => ({}) }) {
+  const maintenance = useSelector(state => _.get(state[model.namespace], 'params'));
+
+  const { getFieldDecorator, getFieldsError } = form;
+
+  useEffect(() => {
+    if (maintenance) {
+      form.setFieldsValue({
+        EquipamentoID: maintenance.EquipamentoID,
+        Horimetro: maintenance.Horímetro,
+      });
+    }
+    console.log(form);
+    console.log(getFieldsError());
+  }, []);
 
   onFormInstance(form);
 
@@ -33,7 +42,7 @@ function AddMaintenance({ form, onFormInstance = () => ({}) }) {
                 message: formatMessage({ id: 'equipment.tag.placeholder' }),
               },
             ],
-          })(<SelectEquipamentTag noInMaintenance />)}
+          })(<SelectEquipamentTag desabled />)}
         </FormItem>
 
         <FormItem>
@@ -44,7 +53,7 @@ function AddMaintenance({ form, onFormInstance = () => ({}) }) {
                 message: formatMessage({ id: 'user.plate' }),
               },
             ],
-          })(<InputNumberPlate />)}
+          })(<InputNumberPlate UserPermissionID={15} />)}
         </FormItem>
 
         <FormItem>
@@ -59,19 +68,14 @@ function AddMaintenance({ form, onFormInstance = () => ({}) }) {
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator('OcorrenciaID', {
+          {getFieldDecorator('UsuarioMecanicoID', {
             rules: [
               {
                 required: true,
-                message: formatMessage({ id: 'ocorrence.Descrition' }),
+                message: formatMessage({ id: 'user.mechanical.placeholder' }),
               },
             ],
-          })(
-            <SelectMaintenanceOccurrence
-              maintenanceType={maintenanceType}
-              equipmentId={equipmentId}
-            />,
-          )}
+          })(<SelectUserMechanical />)}
         </FormItem>
 
         <FormItem>
@@ -79,7 +83,7 @@ function AddMaintenance({ form, onFormInstance = () => ({}) }) {
             rules: [
               {
                 required: true,
-                message: formatMessage({ id: 'app.settings.Note' }),
+                message: 'Observação',
               },
             ],
           })(<TextArea placeholder="Informe uma observação..." />)}
@@ -89,6 +93,6 @@ function AddMaintenance({ form, onFormInstance = () => ({}) }) {
   );
 }
 
-const AddMaintenanceForm = Form.create({ name: 'AddMaintenance' })(AddMaintenance);
+const MaintenanceReleaseForm = Form.create({ name: 'MaintenanceRelease' })(MaintenanceRelease);
 
-export default memo(AddMaintenanceForm);
+export default memo(MaintenanceReleaseForm);

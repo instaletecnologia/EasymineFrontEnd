@@ -1,34 +1,31 @@
 import React, { memo, useEffect, useState } from 'react';
-import { PageHeader, Badge, Typography, Row, Col, Spin, Statistic, Icon } from 'antd';
-import { useSelector, useDispatch } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { PageHeader, Badge, Typography, Row, Col, Statistic, Icon } from 'antd';
 
 const { Text } = Typography;
 const { Countdown } = Statistic;
 
-function Header({ data = [] }) {
-  const loading = useSelector(state => state.loading.effects['MaintenanceMonitoring/fetch']);
+function Header({ data }) {
+  const [vdata, setVdata] = useState([]);
   const [DataEquipamentClassification, setDataEquipamentClassification] = useState([]);
 
   useEffect(() => {
+    setVdata(data);
     setQtdEquipamentClassification();
   }, [data]);
 
-  const deadline = Date.now() + 60000; // Moment is also OK
+  const deadline = Date.now() + 60000;
 
   function setQtdEquipamentClassification() {
-    if (data) {
-      const mediaTypes = data
-        .map(dataItem => dataItem.EquipamentoClassificacaoDescricao)
-        .filter((mediaType, index, array) => array.indexOf(mediaType) === index);
+    const mediaTypes = vdata
+      .map(dataItem => dataItem.EquipamentoClassificacaoDescricao)
+      .filter((mediaType, index, array) => array.indexOf(mediaType) === index);
 
-      const counts = mediaTypes.map(mediaType => ({
-        description: mediaType,
-        count: data.filter(item => item.EquipamentoClassificacaoDescricao === mediaType).length,
-      }));
+    const counts = mediaTypes.map(mediaType => ({
+      description: mediaType,
+      count: vdata.filter(item => item.EquipamentoClassificacaoDescricao === mediaType).length,
+    }));
 
-      setDataEquipamentClassification(counts);
-    }
+    setDataEquipamentClassification(counts);
   }
 
   const SpinTimeReload = () => (
@@ -40,7 +37,8 @@ function Header({ data = [] }) {
         <Countdown
           valueStyle={{ fontSize: 10, fontFamily: Blob, fontWeight: 'bold' }}
           value={deadline}
-          format="ss:SS"
+          Text="Segundos"
+          format="ss"
         />
       </Col>
     </Row>
@@ -60,7 +58,7 @@ function Header({ data = [] }) {
         <Col xs={2} md={1}>
           <SpinTimeReload></SpinTimeReload>
         </Col>
-        <Col xs={10} md={5}>
+        <Col>
           {DataEquipamentClassification.map(item => (
             <BadgeCountEquipament
               description={item.description}
