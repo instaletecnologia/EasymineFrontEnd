@@ -9,12 +9,10 @@ import styles from './index.less';
 
 import ListItem from './components/ListItem';
 
-import ModalMaintenance, {
+import {
   openMaintenance,
   MAINTENANCE_TYPE,
 } from '@/modules/Maintenance/components/ModalMaintenance';
-import ModalMaintenanceDetailing from '@/modules/Maintenance/components/ModalMaintenanceDetailing';
-import ModalMaintenanceRelease from '@/modules/Maintenance/components/ModalMaintenanceRelease';
 
 const { Title } = Typography;
 
@@ -22,11 +20,7 @@ function ListMaintenanceEquipament({ maintenanceType, maintenanceTypeDescription
   const dispatch = useDispatch();
 
   function createMaintenance() {
-    if (maintenanceType === 'HMC') {
-      dispatch(openMaintenance({ maintenanceType: MAINTENANCE_TYPE.HMC }));
-    } else {
-      dispatch(openMaintenance({ maintenanceType: MAINTENANCE_TYPE.HMP }));
-    }
+    dispatch(openMaintenance({ maintenanceType: MAINTENANCE_TYPE[maintenanceType] }));
   }
 
   return (
@@ -59,9 +53,6 @@ function ListMaintenanceEquipament({ maintenanceType, maintenanceTypeDescription
           dataSource={data}
           renderItem={item => <ListItem data={item} />}
         />
-        <ModalMaintenance />
-        <ModalMaintenanceDetailing />
-        <ModalMaintenanceRelease />
       </div>
     </div>
   );

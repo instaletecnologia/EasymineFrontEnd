@@ -6,6 +6,10 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import ListMaintenanceEquipament from '@/modules/Maintenance/controls/MaintenanceMonitoring/components/ListMaintenanceEquipament';
 import Header from './components/Header';
 
+import ModalMaintenance from '@/modules/Maintenance/components/ModalMaintenance';
+import ModalMaintenanceDetailing from '@/modules/Maintenance/components/ModalMaintenanceDetailing';
+import ModalMaintenanceRelease from '@/modules/Maintenance/components/ModalMaintenanceRelease';
+
 function MaintenanceMonitoring() {
   const data = useSelector(state => state.MaintenanceMonitoring.data);
   const [dataHMC, setDataHMC] = useState([]);
@@ -56,6 +60,9 @@ function MaintenanceMonitoring() {
           />
         </Col>
       </Row>
+      <ModalMaintenance />
+      <ModalMaintenanceDetailing />
+      <ModalMaintenanceRelease />
     </div>
   );
 }

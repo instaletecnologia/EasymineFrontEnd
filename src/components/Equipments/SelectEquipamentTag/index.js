@@ -13,14 +13,12 @@ function SelectEquipamentTag({ onChange, value, desabled, noInMaintenance }) {
     onChange(null);
     setData([]);
     setLoading(true);
-    let result = [];
 
-    if (noInMaintenance === true) {
-      result = await fetchSelectEquipmentTagNoInMaintenance();
-    } else {
-      result = await fetchSelectEquipmentTag();
-    }
-    setData(result);
+    const result = noInMaintenance
+      ? await fetchSelectEquipmentTagNoInMaintenance()
+      : await fetchSelectEquipmentTag();
+
+    setData(result || []);
     setLoading(false);
   }
 
