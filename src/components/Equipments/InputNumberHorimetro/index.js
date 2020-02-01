@@ -5,17 +5,30 @@ import StringMask from 'string-mask';
 
 const { Text } = Typography;
 
-const formatter = new StringMask('#.##0,00', { reverse: true });
-
 function InputNumberHorimetro({ onChange, value }) {
   async function loadData() {
     onChange(null);
   }
 
-  function onChangeValue(event) {
-    console.log(event.target.value, formatter.apply(event.target.value));
-    event.target.value = formatter.apply(event.target.value);
-    return onChange(event);
+  function onComponentChange(e) {
+    const mask = new StringMask('#.##9,90', { reverse: true });
+    const newValue = mask.apply(
+      e.target.value
+        .toString()
+        .replace(/^\D+/g, '')
+        .replace('.', '')
+        .replace(',', ''),
+    );
+
+    console.log(
+      e.target.value,
+      e.target.value
+        .toString()
+        .replace(/^\D+/g, '')
+        .replace('.', ''),
+      value,
+    );
+    onChange(newValue);
   }
 
   // useEffect(() => {
@@ -28,12 +41,12 @@ function InputNumberHorimetro({ onChange, value }) {
       <Input
         defaultValue={value}
         style={{ width: '200px' }}
-        min={0}
-        // step={0.01}
-        onChange={onChangeValue}
+        type="text"
+        onChange={onComponentChange}
+        value={value}
       />
     </>
   );
 }
 
-export default InputNumberHorimetro;
+export default memo(InputNumberHorimetro);
