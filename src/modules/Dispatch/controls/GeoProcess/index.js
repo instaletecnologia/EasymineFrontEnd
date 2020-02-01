@@ -7,7 +7,7 @@ import proj4 from 'proj4';
 
 import Map from '@/components/Map';
 import Equipment from '@/components/Equipment';
-import styles from '../assets/Position.less';
+import styles from './assets/Position.less';
 
 proj4.defs([
   [
@@ -26,29 +26,9 @@ proj4.defs([
 class Position extends React.PureComponent {
   timer = null;
 
-  componentDidMount() {
-    this.loadCoords();
-    this.loadEquipments();
-    this.timer = setInterval(() => this.loadEquipments(), 6500);
-  }
-
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = null;
-  }
-
-  loadCoords = async () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'geoprocessPosition/loadCoords',
-    });
-  }
-
-  loadEquipments = async () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'geoprocessPosition/loadEquipments',
-    });
   }
 
   renderEquipmentMarker = equipment => {
@@ -68,7 +48,9 @@ class Position extends React.PureComponent {
   }
 
   render() {
-    const { loadingCoords, coords, equipments } = this.props;
+    const coords = { lat: 0, lng: 0 };
+    const equipments = [];
+    const loadingCoords = false;
 
     if (loadingCoords) return <Spin />;
 
@@ -85,8 +67,4 @@ class Position extends React.PureComponent {
   }
 }
 
-export default connect(({ geoprocessPosition, loading }) => ({
-  coords: geoprocessPosition.coords,
-  equipments: geoprocessPosition.equipments,
-  loadingCoords: loading.effects['geoprocessPosition/loadCoords'],
-}))(Position);
+export default Position;
