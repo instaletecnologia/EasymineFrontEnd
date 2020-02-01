@@ -3,6 +3,7 @@
 
 import OPERATION_MODULE from '@/modules/Operation/menu.js';
 import MAINTENANCE_MODULE from '@/modules/Maintenance/menu.js';
+import DISPATCH_MODULE from '@/modules/Dispatch/menu.js';
 
 export default [
   {
@@ -40,12 +41,13 @@ export default [
     routes: [
       {
         path: '/',
-        name: 'welcome',
+        name: 'Geoprocessamento',
         icon: 'smile',
-        component: './Welcome',
+        component: './../modules/Dispatch/controls/GeoProcess',
       },
       OPERATION_MODULE,
       MAINTENANCE_MODULE,
+      DISPATCH_MODULE,
       /*
        * END Modules
        */
