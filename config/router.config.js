@@ -1,6 +1,8 @@
-const OPERATION_MODULE = require('../src/modules/Operation/route.json');
+// const OPERATION_MODULE = require('../src/modules/Operation/route.json');
+// const MAINTENANCE_MODULE = require('../src/modules/Maintenance/route.json');
 
-const MAINTENANCE_MODULE = require('../src/modules/Maintenance/route.json');
+import OPERATION_MODULE from '@/modules/Operation/menu.js';
+import MAINTENANCE_MODULE from '@/modules/Maintenance/menu.js';
 
 export default [
   {
@@ -37,23 +39,13 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       {
-        // name: formatMessage({ id: 'menu.maintenance.monitoring' }),
-        name: 'Acompanhamento de manutenção',
-        icon: 'tool',
-        path: '/maintenance-monitoring',
-        component: './MaintenanceMonitoring',
-      },
-      {
         path: '/',
         name: 'welcome',
         icon: 'smile',
         component: './Welcome',
       },
-      {
-        path: '/basic',
-        name: 'Básico',
-        routes: [OPERATION_MODULE, MAINTENANCE_MODULE],
-      },
+      OPERATION_MODULE,
+      MAINTENANCE_MODULE,
       /*
        * END Modules
        */

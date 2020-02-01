@@ -3,7 +3,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 
-import ListMaintenanceEquipament from '@/pages/MaintenanceMonitoring/components/ListMaintenanceEquipament';
+import ListMaintenanceEquipament from '@/modules/Maintenance/controls/MaintenanceMonitoring/components/ListMaintenanceEquipament';
 import Header from './components/Header';
 
 function MaintenanceMonitoring() {
