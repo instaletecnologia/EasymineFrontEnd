@@ -13,6 +13,8 @@ import RightContent from '@/components/GlobalHeader/RightContent';
 import GlobalFooter from '@/components/GlobalFooter';
 import logo from '../assets/logo.png';
 
+import '@/services/socket';
+
 /**
  * use Authorized check all menu item
  */
