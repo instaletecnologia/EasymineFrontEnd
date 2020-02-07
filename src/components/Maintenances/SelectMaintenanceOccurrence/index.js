@@ -10,7 +10,6 @@ function SelectMaintenanceOccurrence({ onChange, equipmentId = null, maintenance
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
 
     if (maintenanceType && equipmentId) {

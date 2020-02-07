@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Input, Typography } from 'antd';
 import { formatMessage } from 'umi-plugin-react/locale';
 import StringMask from 'string-mask';
@@ -6,10 +6,6 @@ import StringMask from 'string-mask';
 const { Text } = Typography;
 
 function InputNumberHorimetro({ onChange, value }) {
-  async function loadData() {
-    onChange(null);
-  }
-
   function onComponentChange(e) {
     const mask = new StringMask('#.##9,90', { reverse: true });
     const newValue = mask.apply(
@@ -20,14 +16,14 @@ function InputNumberHorimetro({ onChange, value }) {
         .replace(',', ''),
     );
 
-    console.log(
-      e.target.value,
-      e.target.value
-        .toString()
-        .replace(/^\D+/g, '')
-        .replace('.', ''),
-      value,
-    );
+    // console.log(
+    //   e.target.value,
+    //   e.target.value
+    //     .toString()
+    //     .replace(/^\D+/g, '')
+    //     .replace('.', ''),
+    //   value,
+    // );
     onChange(newValue);
   }
 

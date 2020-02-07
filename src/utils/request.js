@@ -33,10 +33,10 @@ const codeMessage = {
 const errorHandler = async error => {
   const { response } = error;
   const dataResult = await response.json();
+
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
-
     switch (status) {
       case 200:
         return notification.success({
