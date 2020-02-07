@@ -1,0 +1,6 @@
+ Para instalar as depencias de algum plugin execute:
+ yarn install
+
+ Para executar o projeto
+ yarn start
+yar

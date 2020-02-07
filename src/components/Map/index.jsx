@@ -3,7 +3,8 @@ import Dimensions from 'react-dimensions';
 import PropTypes from 'prop-types';
 import MapGL from 'react-map-gl';
 
-const TOKEN = 'pk.eyJ1IjoiYnJ1bm9nb25uY2FsdmVzIiwiYSI6ImNqa3R3cGU1MzAwc2kzcHFrcGRlYmc0NXAifQ.LoA3kbY8I5BEbqr9kOGyWA';
+const TOKEN =
+  'pk.eyJ1IjoiYnJ1bm9nb25uY2FsdmVzIiwiYSI6ImNqa3R3cGU1MzAwc2kzcHFrcGRlYmc0NXAifQ.LoA3kbY8I5BEbqr9kOGyWA';
 
 class Map extends Component {
   static propTypes = {
@@ -17,11 +18,11 @@ class Map extends Component {
       viewport: {
         latitude: props.lat,
         longitude: props.lng,
-        zoom: props.zoom || 12.8,
+        zoom: props.zoom || 15,
         bearing: 0,
         pitch: 0,
       },
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +38,7 @@ class Map extends Component {
     newData.longitude = lng;
 
     this.setState({ viewport });
-  }
+  };
 
   render() {
     const { containerWidth, containerHeight, children } = this.props;
