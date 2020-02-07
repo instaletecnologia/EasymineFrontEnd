@@ -23,26 +23,27 @@ function ListMaintenanceEquipament({ maintenanceType, maintenanceTypeDescription
     dispatch(openMaintenance({ maintenanceType: MAINTENANCE_TYPE[maintenanceType] }));
   }
 
+  const BadgeCountEquipament = ({ description, count }) => (
+    <Badge
+      count={count}
+      style={{ backgroundColor: '#0d0d0d', color: '#fff', borderColor: '#0d0d0d' }}
+      title={formatMessage({ id: 'expressions.AmountOfEquipment' })}
+    >
+      <Title level={3}>{description}</Title>
+    </Badge>
+  );
+
   return (
     <div className={classNames(classNames, styles.div)}>
       <div style={{ backgroundColor: color, padding: '0.5%', paddingLeft: '20%' }}>
-        <Title level={4}>
-          {maintenanceTypeDescription}
-          <span style={{ paddingLeft: '1%' }}>
-            <Badge
-              title={formatMessage({ id: 'expressions.AmountOfEquipment' })}
-              count={data.length}
-              style={{ backgroundColor: '#0d0d0d', color: '#fff', borderColor: '#0d0d0d' }}
-            ></Badge>
-          </span>
-          <span
-            onClick={createMaintenance}
-            style={{ paddingLeft: '20%', fontSize: '16px', color: '#000' }}
-          >
-            <Icon type="tool" theme="filled" />
-            {formatMessage({ id: 'component.tagSelect.Add' })}
-          </span>
-        </Title>
+        <BadgeCountEquipament description={maintenanceTypeDescription} count={data.length} />
+        <span
+          onClick={createMaintenance}
+          style={{ paddingLeft: '20%', fontSize: '16px', color: '#000' }}
+        >
+          <Icon type="tool" theme="filled" />
+          {formatMessage({ id: 'component.tagSelect.Add' })}
+        </span>
       </div>
 
       <div style={{ backgroundColor: color, margin: '0.5%' }}>

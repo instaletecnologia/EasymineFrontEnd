@@ -2,7 +2,7 @@ module.exports = {
   path: '/operation',
   name: 'Operação',
   authority: ['MODULE', '-10'],
-  icon: 'global',
+  icon: 'thunderbolt',
   routes: [
     {
       path: '/operation/registers',
@@ -17,6 +17,21 @@ module.exports = {
           icon: 'branches',
           component: '../modules/Operation/pages/registers/RegistersActivities',
         }, */
+      ],
+    },
+    {
+      path: '/operation/indicators',
+      name: 'Indicadores',
+      authority: ['DIRECTORY', 'INDICADORES'],
+      icon: 'database',
+      routes: [
+        {
+          path: '/operation/indicators/movement',
+          name: 'Dashboard Movement',
+          // authority: ['FUNCTIONALITY', '64'],
+          icon: 'dashboard',
+          component: '../modules/Operation/pages/indicators/movement/dashboardMovement',
+        },
       ],
     },
   ],

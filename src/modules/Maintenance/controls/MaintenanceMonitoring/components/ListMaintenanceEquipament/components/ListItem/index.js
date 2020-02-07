@@ -39,7 +39,12 @@ function ListItem({ data }) {
     <List.Item actions={[<IconTextDetailing />, <IconTextRelease />]}>
       <List.Item.Meta
         // avatar={ <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> }
-        title={<a href={data.Tag}> {data.Tag}</a>}
+        title={
+          <a style={{ fontSize: '20px', color: '#000' }} href={data.Tag}>
+            {' '}
+            {data.Tag}
+          </a>
+        }
         description={
           <div>
             <Text strong>{formatMessage({ id: 'equipment.fleet' })}</Text>

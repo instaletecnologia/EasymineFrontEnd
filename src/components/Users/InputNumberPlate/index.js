@@ -10,7 +10,6 @@ function InputNumberPlate({ onChange: OnChange }) {
   const [name, setName] = useState('');
 
   async function loadData() {
-    onChange(null);
     setData([]);
     const result = await fetch();
     setData(result);

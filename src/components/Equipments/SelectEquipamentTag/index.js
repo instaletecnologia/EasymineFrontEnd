@@ -5,12 +5,11 @@ import { fetchSelectEquipmentTag, fetchSelectEquipmentTagNoInMaintenance } from 
 
 const { Option } = Select;
 
-function SelectEquipamentTag({ onChange, value, desabled, noInMaintenance }) {
+function SelectEquipamentTag({ onChange, value, disabled, noInMaintenance }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
     setLoading(true);
 
@@ -24,7 +23,7 @@ function SelectEquipamentTag({ onChange, value, desabled, noInMaintenance }) {
 
   useEffect(() => {
     loadData();
-  }, [noInMaintenance]);
+  }, [value]);
 
   return (
     <>
@@ -42,7 +41,7 @@ function SelectEquipamentTag({ onChange, value, desabled, noInMaintenance }) {
         }
         loading={loading}
         value={value}
-        disabled={desabled}
+        disabled={disabled}
       >
         {data.map(item => (
           <Option key={item.EquipamentoID} value={item.EquipamentoID}>
