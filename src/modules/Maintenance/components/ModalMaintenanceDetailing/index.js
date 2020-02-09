@@ -74,7 +74,7 @@ function MaintenanceDetailingForm({ form }) {
   return (
     // <div className={classNames(classNames, styles.div)}>
     <Modal
-      width={380}
+      width={420}
       visible={visible}
       title={`${formatMessage({ id: 'maintenance.breakdown' })} - ${controleHoraID}`}
       onCancel={close}

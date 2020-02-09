@@ -65,7 +65,7 @@ function ModalMaintenanceReleaseForm({ form }) {
 
   return (
     <Modal
-      width={380}
+      width={420}
       visible={visible}
       title={`${formatMessage({ id: 'maintenance.release' })} - ${controleHoraID}`}
       onCancel={close}
@@ -134,7 +134,7 @@ function ModalMaintenanceReleaseForm({ form }) {
           {getFieldDecorator('Observacoes', {
             rules: [
               {
-                required: true,
+                required: false,
                 message: 'Observação',
               },
             ],

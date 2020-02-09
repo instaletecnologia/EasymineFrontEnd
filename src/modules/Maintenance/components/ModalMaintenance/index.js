@@ -8,6 +8,7 @@ import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
 import SelectMaintenanceOccurrence from '@/components/Maintenances/SelectMaintenanceOccurrence';
 import InputNumberPlate from '@/components/Users/InputNumberPlate';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
+// import TextAreaNote from '@/components/Note';
 
 import { add } from './services/api';
 
@@ -56,7 +57,7 @@ function MaintenanceForm({ form }) {
 
   return (
     <Modal
-      width={380}
+      width={420}
       visible={visible}
       title={formatMessage({ id: 'maintenance.inclusion' })}
       onCancel={close}
@@ -127,10 +128,10 @@ function MaintenanceForm({ form }) {
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator('Observacoes', {
+          {getFieldDecorator('Observacao', {
             rules: [
               {
-                required: true,
+                required: false,
                 message: formatMessage({ id: 'app.settings.Note' }),
               },
             ],
@@ -159,6 +160,6 @@ export function closeMaintenance() {
 }
 
 export const MAINTENANCE_TYPE = {
-  HMC: 6,
-  HMP: 7,
+  HMC: 7,
+  HMP: 6,
 };

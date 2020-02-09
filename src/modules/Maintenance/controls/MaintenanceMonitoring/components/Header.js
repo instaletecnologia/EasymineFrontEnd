@@ -1,28 +1,31 @@
 import React, { memo, useEffect, useState } from 'react';
+import { useSelector } from 'dva';
 import { PageHeader, Badge, Typography, Row, Col, Statistic, Icon } from 'antd';
 
 const { Text } = Typography;
 const { Countdown } = Statistic;
 
-function Header({ data }) {
-  const [vdata, setVdata] = useState([]);
+function Header() {
+  const data = useSelector(state => state.MaintenanceMonitoring.data);
   const [DataEquipamentClassification, setDataEquipamentClassification] = useState([]);
 
   useEffect(() => {
-    setVdata(data);
     setQtdEquipamentClassification();
   }, [data]);
 
   const deadline = Date.now() + 60000;
 
   function setQtdEquipamentClassification() {
-    const mediaTypes = vdata
+    const equipmentClassifications = data
       .map(dataItem => dataItem.EquipamentoClassificacaoDescricao)
-      .filter((mediaType, index, array) => array.indexOf(mediaType) === index);
+      .filter(
+        (equipmentClassification, index, array) => array.indexOf(equipmentClassification) === index,
+      );
 
-    const counts = mediaTypes.map(mediaType => ({
-      description: mediaType,
-      count: vdata.filter(item => item.EquipamentoClassificacaoDescricao === mediaType).length,
+    const counts = equipmentClassifications.map(equipmentClassification => ({
+      description: equipmentClassification,
+      count: data.filter(item => item.EquipamentoClassificacaoDescricao === equipmentClassification)
+        .length,
     }));
 
     setDataEquipamentClassification(counts);

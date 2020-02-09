@@ -1,7 +1,11 @@
 import socketIOClient from 'socket.io-client';
 
 // eslint-disable-next-line no-undef
-export const socketInstance = socketIOClient(SOCKET_URL, {
+// export const socketInstance = socketIOClient(SOCKET_URL, {
+//   autoConnect: true,
+// });
+
+export const socketInstance = socketIOClient({
   autoConnect: true,
 });
 

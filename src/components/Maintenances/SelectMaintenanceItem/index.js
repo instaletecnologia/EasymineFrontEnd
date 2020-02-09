@@ -15,7 +15,6 @@ function SelectMaintenanceItem({
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
 
     if (EquipamentoModeloID && ClasseFalhaID) {

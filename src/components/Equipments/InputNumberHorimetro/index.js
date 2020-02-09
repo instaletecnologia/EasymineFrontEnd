@@ -16,20 +16,8 @@ function InputNumberHorimetro({ onChange, value }) {
         .replace(',', ''),
     );
 
-    // console.log(
-    //   e.target.value,
-    //   e.target.value
-    //     .toString()
-    //     .replace(/^\D+/g, '')
-    //     .replace('.', ''),
-    //   value,
-    // );
     onChange(newValue);
   }
-
-  // useEffect(() => {
-  //   loadData();
-  // }, []);
 
   return (
     <>

@@ -10,7 +10,6 @@ function SelectMaintenanceReason({ onChange, value }) {
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
     setLoading(true);
     const result = await fetchSelect();

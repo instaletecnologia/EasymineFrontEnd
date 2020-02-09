@@ -10,7 +10,6 @@ function SelectUserMechanical({ onChange, value }) {
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
 
     setLoading(true);

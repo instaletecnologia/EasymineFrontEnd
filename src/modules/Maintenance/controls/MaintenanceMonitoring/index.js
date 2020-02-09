@@ -10,14 +10,6 @@ import ModalMaintenance from '@/modules/Maintenance/components/ModalMaintenance'
 import ModalMaintenanceDetailing from '@/modules/Maintenance/components/ModalMaintenanceDetailing';
 import ModalMaintenanceRelease from '@/modules/Maintenance/components/ModalMaintenanceRelease';
 
-import model from './models/MaintenanceMonitoringModel';
-
-export function updateMonitoring() {
-  return {
-    type: `${model.namespace}/fetch`,
-  };
-}
-
 function MaintenanceMonitoring() {
   const data = useSelector(state => state.MaintenanceMonitoring.data);
   const [dataHMC, setDataHMC] = useState([]);
@@ -26,15 +18,17 @@ function MaintenanceMonitoring() {
   let timer = null;
   const dispatch = useDispatch();
 
-  function loadData() {
-    dispatch(updateMonitoring());
+  async function loadData() {
+    dispatch({
+      type: 'MaintenanceMonitoring/fetch',
+    });
   }
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      setDataHMC(data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 3));
-      setDataHMP(data.filter(el => el.idCategoriasTempo === 7 || el.ParentID === 7));
-    }
+    setDataHMC(data.filter(el => el.idCategoriasTempo === 7 || el.ParentID === 7));
+    setDataHMP(
+      data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 6 || el.ParentID === 3),
+    );
   }, [data]);
 
   useEffect(() => {
@@ -47,7 +41,7 @@ function MaintenanceMonitoring() {
 
   return (
     <div>
-      <Header data={data} />
+      <Header />
       <Row>
         <Col xs={12}>
           <ListMaintenanceEquipament

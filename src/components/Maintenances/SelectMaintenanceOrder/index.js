@@ -15,7 +15,6 @@ function SelectMaintenanceOrder({
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
 
     if (EquipamentoID && idCategoriasTempo) {
