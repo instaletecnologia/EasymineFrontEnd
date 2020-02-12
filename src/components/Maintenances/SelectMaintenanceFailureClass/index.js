@@ -14,8 +14,10 @@ function SelectMaintenanceFailureClass({ onChange, maintenance = [] }) {
 
     if (maintenance) {
       setLoading(true);
-      const { idCategoriasTempo, ParentID, EquipamentoID } = maintenance;
+      const { EquipamentoID, idCategoriasTempo, ParentID } = maintenance;
+
       const result = await fetchSelect({ EquipamentoID, idCategoriasTempo, ParentID });
+
       if (result.length > 0) {
         setData(result);
       }

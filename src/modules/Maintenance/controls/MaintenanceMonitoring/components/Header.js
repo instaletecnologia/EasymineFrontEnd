@@ -6,11 +6,13 @@ const { Text } = Typography;
 const { Countdown } = Statistic;
 
 function Header() {
-  const data = useSelector(state => state.MaintenanceMonitoring.data);
+  const data = useSelector(state => state.MaintenanceMonitoring.data, []);
   const [DataEquipamentClassification, setDataEquipamentClassification] = useState([]);
 
   useEffect(() => {
-    setQtdEquipamentClassification();
+    if (data.length > 0 || data !== null) {
+      setQtdEquipamentClassification();
+    }
   }, [data]);
 
   const deadline = Date.now() + 60000;

@@ -10,6 +10,7 @@ import maintenance from './pt-BR/maintenance';
 import equipment from './pt-BR/equipment';
 import expressions from './pt-BR/expressions';
 import ocorrence from './pt-BR/ocorrence';
+import date from './pt-BR/date';
 
 export default {
   'navBar.lang': 'Idiomas',
@@ -29,4 +30,5 @@ export default {
   ...equipment,
   ...expressions,
   ...ocorrence,
+  ...date,
 };

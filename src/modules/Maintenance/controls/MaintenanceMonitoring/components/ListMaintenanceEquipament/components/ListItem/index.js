@@ -61,7 +61,7 @@ function ListItem({ data }) {
             <div>
               <Text mark>
                 {data.Detalhado ? (
-                  formatMessage({ id: 'expressions.Detailed' })`: ${data.Detalhado}`
+                  `${data.Detalhado.toString()}`
                 ) : (
                   <span>{formatMessage({ id: 'expressions.NoDetailsFound' })}</span>
                 )}

@@ -11,7 +11,7 @@ import ModalMaintenanceDetailing from '@/modules/Maintenance/components/ModalMai
 import ModalMaintenanceRelease from '@/modules/Maintenance/components/ModalMaintenanceRelease';
 
 function MaintenanceMonitoring() {
-  const data = useSelector(state => state.MaintenanceMonitoring.data);
+  const data = useSelector(state => state.MaintenanceMonitoring.data, []);
   const [dataHMC, setDataHMC] = useState([]);
   const [dataHMP, setDataHMP] = useState([]);
 

@@ -9,6 +9,7 @@ import maintenance from './en-US/maintenance';
 import equipment from './en-US/equipment';
 import expressions from './en-US/expressions';
 import ocorrence from './en-US/ocorrence';
+import date from './en-US/date';
 
 export default {
   'navBar.lang': 'Languages',
@@ -27,4 +28,5 @@ export default {
   ...equipment,
   ...expressions,
   ...ocorrence,
+  ...date,
 };
