@@ -4,6 +4,7 @@ import menu from './en-US/menu';
 import pwa from './en-US/pwa';
 import settingDrawer from './en-US/settingDrawer';
 import settings from './en-US/settings';
+import login from './en-US/login';
 import user from './en-US/user';
 import maintenance from './en-US/maintenance';
 import equipment from './en-US/equipment';
@@ -23,6 +24,7 @@ export default {
   ...settings,
   ...pwa,
   ...component,
+  ...login,
   ...user,
   ...maintenance,
   ...equipment,

@@ -6,12 +6,14 @@ const { Text } = Typography;
 const { Countdown } = Statistic;
 
 function Header() {
-  const data = useSelector(state => state.MaintenanceMonitoring.data, []);
+  const data = useSelector(state => state.MaintenanceMonitoring.data);
   const [DataEquipamentClassification, setDataEquipamentClassification] = useState([]);
 
   useEffect(() => {
-    if (data.length > 0 || data !== null) {
+    if (data.length > 0) {
       setQtdEquipamentClassification();
+    } else {
+      setDataEquipamentClassification([])
     }
   }, [data]);
 
@@ -25,6 +27,7 @@ function Header() {
       );
 
     const counts = equipmentClassifications.map(equipmentClassification => ({
+      id: equipmentClassification.EquipamentoClassificaoID,
       description: equipmentClassification,
       count: data.filter(item => item.EquipamentoClassificacaoDescricao === equipmentClassification)
         .length,
@@ -50,7 +53,7 @@ function Header() {
   );
 
   const BadgeCountEquipament = ({ description, count, bkColor }) => (
-    <Badge count={count} style={{ backgroundColor: bkColor, color: '#fff', borderColor: bkColor }}>
+    <Badge key={count} count={count} style={{ backgroundColor: bkColor, color: '#fff', borderColor: bkColor }}>
       <Text strong style={{ margin: '12px', fontSize: 11, fontWeight: 'bold' }}>
         {description}
       </Text>
@@ -66,6 +69,7 @@ function Header() {
         <Col>
           {DataEquipamentClassification.map(item => (
             <BadgeCountEquipament
+              key={item.count}
               description={item.description}
               count={item.count}
               bkColor={item.count < 11 ? '#87d068' : 'red'}

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { fetchMaintenceEquipments } from '../services/api';
 
 const MaintenanceMonitoringModel = {
@@ -15,9 +16,11 @@ const MaintenanceMonitoringModel = {
     },
   },
   effects: {
-    *fetch(_, { call, put }) {
+    *fetch(_params, { call, put }) {
       const response = yield call(fetchMaintenceEquipments);
-      yield put({ type: 'setData', payload: response });
+      if (_.isArray(response)) {
+        yield put({ type: 'setData', payload: response });
+      }
     },
   },
 };

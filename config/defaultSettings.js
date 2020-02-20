@@ -1,16 +1,21 @@
 export default {
-  navTheme: 'dark',
-  primaryColor: '#0a1335',
+ navTheme: 'dark',
+  primaryColor: '#0C1331',
   layout: 'sidemenu',
   contentWidth: 'Fluid',
-  fixedHeader: false,
+  fixedHeader: true,
   autoHideHeader: false,
   fixSiderbar: false,
-  colorWeak: false,
   menu: {
-    locale: true,
+    disableLocal: true,
   },
-  title: 'Instale tecnologia',
+  title: 'Easymine',
   pwa: false,
   iconfontUrl: '',
-};
+  collapse: true,
+  conceptionColors: {
+    general: '#afafaf',
+    first_iatf: '#0C1331',
+    resync: '#cd1041',
+  },
+}

@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Button, Modal, Form, Input, notification } from 'antd';
+import { Button, DatePicker, Modal, Form, Input, notification } from 'antd';
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import _ from 'lodash';
@@ -12,7 +12,6 @@ import SelectUserMechanical from '@/components/Maintenances/SelectUserMechanical
 import SelectMaintenanceReason from '@/components/Maintenances/SelectMaintenanceReason';
 import SelectMaintenanceOrder from '@/components/Maintenances/SelectMaintenanceOrder';
 import InputNumberPlate from '@/components/Users/InputNumberPlate';
-import DatePickerAndTime from '@/components/DatePicker/DatePickerAndTime';
 
 import { add } from './services/api';
 
@@ -39,16 +38,15 @@ function MaintenanceDetailingForm({ form }) {
 
   const classeFalhaID = getFieldValue('ClasseFalhaID');
   const equipamentoModeloID = _.get(maintenance, 'EquipamentoModeloID');
-  const controleHoraID = _.get(maintenance, 'ControleHoraID');
   const dateStart = _.get(maintenance, 'DataHoraInicio');
+  const ControleHoraID = _.get(maintenance, 'ControleHoraID');
+  const OcorrenciaID = _.get(maintenance, 'OcorrenciaID');
 
   useEffect(() => {
     if (visible) {
       setFieldsValue({
         EquipamentoID: _.get(maintenance, 'EquipamentoID'),
         Horimetro: _.get(maintenance, 'Horímetro'),
-        ControleHoraID: _.get(maintenance, 'ControleHoraID'),
-        OcorrenciaID: _.get(maintenance, 'OcorrenciaID'),
       });
     }
   }, [visible]);
@@ -79,9 +77,6 @@ function MaintenanceDetailingForm({ form }) {
         formatMessage({ id: 'date.notification.notAllowed' }),
         formatMessage({ id: 'date.validet.dateGreaterCurrentDate' }),
       );
-      console.log('value', newValue);
-      console.log('dateNow', dateNow);
-      console.log('moment(value).isAfter(dateNow)', moment(newValue).isAfter(dateNow));
       return false;
     }
     if (moment(newValue).isSameOrBefore(moment(dateStart))) {
@@ -90,12 +85,12 @@ function MaintenanceDetailingForm({ form }) {
         formatMessage({ id: 'date.notification.notAllowed' }),
         formatMessage({ id: 'date.validet.dateLessStartMaintence' }),
       );
-      console.log('value', newValue);
-      console.log('dateNow', dateStart);
-      console.log(
-        'moment(value).isSameOrBefore(moment(dateStart))',
-        moment(newValue).isSameOrBefore(moment(dateStart)),
-      );
+     // console.log('value', newValue);
+     // console.log('dateNow', dateStart);
+     // console.log(
+     //   'moment(value).isSameOrBefore(moment(dateStart))',
+     //   moment(newValue).isSameOrBefore(moment(dateStart)),
+     // );
       return false;
     }
     return true;
@@ -110,29 +105,12 @@ function MaintenanceDetailingForm({ form }) {
         return;
       }
       const dataHora = _.get(values, 'DataHora');
-      console.log('data hora', dataHora);
       if ((await isDateValidet(dataHora)) === false) {
         setLoading(false);
         getFieldsError();
         return;
       }
-
-      const newValues = [
-        {
-          ClasseFalhaID: _.get(values, 'ClasseFalhaID'),
-          EquipamentoID: _.get(values, 'EquipamentoID'),
-          UsuarioID: _.get(values, 'UsuarioID'),
-          ManutencaoItenID: _.get(values, 'ManutencaoItenID'),
-          UsuarioMecanicoID: _.get(values, 'UsuarioMecanicoID'),
-          MotivoManutencaoID: _.get(values, 'MotivoManutencaoID'),
-          OrdemManutencaoID: _.get(values, 'OrdemManutencaoID'),
-          Observacao: _.get(values, 'Observacao'),
-          ControleHoraID: _.get(maintenance, 'ControleHoraID'),
-          OcorrenciaID: _.get(maintenance, 'OcorrenciaID'),
-        },
-      ];
-      console.log(_.get(values, 'DataHora'));
-      await add(values);
+      await add({ ...values, ControleHoraID, OcorrenciaID });
       await close();
     });
   }
@@ -144,11 +122,10 @@ function MaintenanceDetailingForm({ form }) {
   });
 
   return (
-    // <div className={classNames(classNames, styles.div)}>
     <Modal
       width={420}
       visible={visible}
-      title={`${formatMessage({ id: 'maintenance.breakdown' })} - ${controleHoraID}`}
+      title={`${formatMessage({ id: 'maintenance.breakdown' })} - ${ControleHoraID}`}
       onCancel={close}
       destroyOnClose
       footer={[
@@ -179,7 +156,7 @@ function MaintenanceDetailingForm({ form }) {
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator('DataHora', {
+          {getFieldDecorator('DataDetalhamento', {
             initialValue: moment(dateStart),
             rules: [
               {
@@ -187,7 +164,7 @@ function MaintenanceDetailingForm({ form }) {
                 message: formatMessage({ id: 'date.title' }),
               },
             ],
-          })(<DatePickerAndTime />)}
+          })(<DatePicker showTime placeholder={formatMessage({ id: 'date.title' })} />)}
         </FormItem>
 
         <FormItem>
@@ -250,7 +227,7 @@ function MaintenanceDetailingForm({ form }) {
           })(<SelectMaintenanceReason />)}
         </FormItem>
 
-        <FormItem initialValue={null}>
+        <FormItem>
           {getFieldDecorator('OrdemManutencaoID', {
             rules: [
               {
@@ -275,26 +252,6 @@ function MaintenanceDetailingForm({ form }) {
               },
             ],
           })(<TextArea maxLength={255} placeholder="Informe uma observação..." />)}
-        </FormItem>
-
-        <FormItem>
-          {getFieldDecorator('ControleHoraID', {
-            rules: [
-              {
-                required: true,
-              },
-            ],
-          })(<></>)}
-        </FormItem>
-
-        <FormItem>
-          {getFieldDecorator('OcorrenciaID', {
-            rules: [
-              {
-                required: true,
-              },
-            ],
-          })(<></>)}
         </FormItem>
       </Form>
     </Modal>

@@ -26,9 +26,7 @@ function MaintenanceMonitoring() {
 
   useEffect(() => {
     setDataHMC(data.filter(el => el.idCategoriasTempo === 7 || el.ParentID === 7));
-    setDataHMP(
-      data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 6 || el.ParentID === 3),
-    );
+    setDataHMP(data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 6));
   }, [data]);
 
   useEffect(() => {

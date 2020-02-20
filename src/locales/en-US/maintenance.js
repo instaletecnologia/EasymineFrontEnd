@@ -8,6 +8,8 @@ export default {
   'maintenance.placeholder.Maintenanceitem': 'Select item',
   'maintenance.select.Reason': 'Select reason',
   'maintenance.select.Order': 'Select order',
-  'maintenance.error.release.WithoutOccurrence':
-    'There is no occurrence of the type Equipment released registered for the type of this equipment!',
+  'maintenance.detailed.item': 'Detailed Item',
+  'maintenance.error.release.WithoutOccurrence': 'There is no occurrence of the type Equipment released registered for the type of this equipment!',
+  'maintenance.error.not.allocated.activity': 'Equipment is not allocated to an activity!',
+  'maintenance.error.not.possible.insert.details': 'It was not possible to insert the details!',
 };

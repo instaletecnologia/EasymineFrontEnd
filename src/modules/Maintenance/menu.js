@@ -1,17 +1,17 @@
 module.exports = {
-  path: '/maintenance',
+  path: '/optional/maintenance',
   name: 'maintenance',
   authority: ['MODULE', '-3'],
   icon: 'tool',
   routes: [
     {
-      path: '/maintenance/controls',
+      path: '/optional/maintenance/controls',
       name: 'controls',
       authority: ['DIRECTORY', 'CONTROLES'],
       icon: 'database',
       routes: [
         {
-          path: '/maintenance/controls/maintenance-monitoring',
+          path: '/optional/maintenance/controls/maintenance-monitoring',
           name: 'monitoring',
           icon: 'monitor',
           component: './../modules/Maintenance/controls/MaintenanceMonitoring',
