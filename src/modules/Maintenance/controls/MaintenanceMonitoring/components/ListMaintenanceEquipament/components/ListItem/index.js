@@ -39,7 +39,7 @@ function ListItem({ data }) {
   return (
     <List.Item actions={[<IconTextDetailing />, <IconTextRelease />]}>
       <List.Item.Meta
-          avatar={<Avatar src={`/images/equipment-${data.TAGPREFIXO}-enabled-2d.png`} /> }
+        avatar={<Avatar src={`/images/equipment-${data.TAGPREFIXO}-enabled-2d.png`} />}
         title={
           <a style={{ fontSize: '20px', color: '#000' }} href={data.Tag}>
             {' '}
@@ -53,12 +53,19 @@ function ListItem({ data }) {
             <Text strong>{formatMessage({ id: 'expressions.It_s_at' })}</Text>
             {` ${standardizationWords(data.Ocorrencia).substring(22, 0)}... `}
             <Text strong>{formatMessage({ id: 'expressions.Since' })}</Text>{' '}
-            {`${moment.utc(data.DataHoraInicio).format('L')} ${moment.utc(data.DataHoraInicio).format('LTS')} `}
-            <Text strong>{`(${moment.utc(data.DataHoraInicio).startOf('hours').fromNow()}) `}</Text>
+            {`${moment.utc(data.DataHoraInicio).format('L')} ${moment
+              .utc(data.DataHoraInicio)
+              .format('LTS')} `}
+            <Text strong>{`(${moment
+              .utc(data.DataHoraInicio)
+              .startOf('hours')
+              .fromNow()}) `}</Text>
             <div>
               <Text mark>
                 {data.Detalhado ? (
-                 `${formatMessage({ id: 'maintenance.detailed.item' })}: ${standardizationWords(data.Detalhado)}`
+                  `${formatMessage({ id: 'maintenance.detailed.item' })}: ${standardizationWords(
+                    data.Detalhado,
+                  )}`
                 ) : (
                   <span>{formatMessage({ id: 'expressions.NoDetailsFound' })}</span>
                 )}

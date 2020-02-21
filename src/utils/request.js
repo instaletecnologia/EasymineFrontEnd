@@ -43,23 +43,23 @@ const errorHandler = async error => {
           message: formatMessage({ id: 'app.settings.notification.success' }),
           description: response.message,
         });
-      break;
+        break;
       case 401:
         // @HACK
         // eslint-disable-next-line no-underscore-dangle
         window.g_app._store.dispatch({
           type: 'login/logout',
         });
-      break;
+        break;
 
       case 404:
         notification.warning({
           message: `${status}`,
           description: formatMessage({ id: `${dataResult.message}` }),
         });
-      break;
+        break;
       case 405:
-         window.g_app._store.dispatch({
+        window.g_app._store.dispatch({
           type: 'login/logout',
         });
         break;

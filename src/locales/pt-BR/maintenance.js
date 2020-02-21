@@ -9,7 +9,9 @@ export default {
   'maintenance.select.Reason': 'Selecione um motivo',
   'maintenance.select.Order': 'Selecione uma orderm',
   'maintenance.detailed.item': 'Item Detalhado',
-  'maintenance.error.release.WithoutOccurrence': 'Não existe ocorrência do tipo Equipamento liberado cadastrada para o tipo deste equipamento!',
+  'maintenance.error.release.WithoutOccurrence':
+    'Não existe ocorrência do tipo Equipamento liberado cadastrada para o tipo deste equipamento!',
   'maintenance.error.not.allocated.activity': 'Equipamento não está alocado em uma atividade!',
-  'maintenance.error.not.possible.insert.details': 'Não foi possivel realizar a inserção do detalhamento!',
+  'maintenance.error.not.possible.insert.details':
+    'Não foi possivel realizar a inserção do detalhamento!',
 };

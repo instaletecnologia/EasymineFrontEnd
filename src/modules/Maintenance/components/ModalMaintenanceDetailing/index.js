@@ -85,12 +85,12 @@ function MaintenanceDetailingForm({ form }) {
         formatMessage({ id: 'date.notification.notAllowed' }),
         formatMessage({ id: 'date.validet.dateLessStartMaintence' }),
       );
-     // console.log('value', newValue);
-     // console.log('dateNow', dateStart);
-     // console.log(
-     //   'moment(value).isSameOrBefore(moment(dateStart))',
-     //   moment(newValue).isSameOrBefore(moment(dateStart)),
-     // );
+      // console.log('value', newValue);
+      // console.log('dateNow', dateStart);
+      // console.log(
+      //   'moment(value).isSameOrBefore(moment(dateStart))',
+      //   moment(newValue).isSameOrBefore(moment(dateStart)),
+      // );
       return false;
     }
     return true;

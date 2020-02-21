@@ -13,7 +13,7 @@ function Header() {
     if (data.length > 0) {
       setQtdEquipamentClassification();
     } else {
-      setDataEquipamentClassification([])
+      setDataEquipamentClassification([]);
     }
   }, [data]);
 
@@ -53,7 +53,11 @@ function Header() {
   );
 
   const BadgeCountEquipament = ({ description, count, bkColor }) => (
-    <Badge key={count} count={count} style={{ backgroundColor: bkColor, color: '#fff', borderColor: bkColor }}>
+    <Badge
+      key={count}
+      count={count}
+      style={{ backgroundColor: bkColor, color: '#fff', borderColor: bkColor }}
+    >
       <Text strong style={{ margin: '12px', fontSize: 11, fontWeight: 'bold' }}>
         {description}
       </Text>
