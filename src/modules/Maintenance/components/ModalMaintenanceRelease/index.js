@@ -5,8 +5,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import _ from 'lodash';
 
 import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
-import InputNumberPlate from '@/components/Users/InputNumberPlate';
-import SelectUserMechanical from '@/components/Maintenances/SelectUserMechanical';
+import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
+import SelectUserMechanical from '@/components/Maintenances/Users/SelectUserMechanical';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
 
 import { release } from './services/api';
@@ -106,7 +106,7 @@ function ModalMaintenanceReleaseForm({ form }) {
                 message: formatMessage({ id: 'user.plate' }),
               },
             ],
-          })(<InputNumberPlate UserPermissionID={15} />)}
+          })(<InputNumberPlateMaintenance />)}
         </FormItem>
 
         <FormItem>

@@ -35,7 +35,7 @@ function ListItem({ data }) {
       {formatMessage({ id: 'component.tagSelect.Release' })}
     </span>
   );
-
+  // <Text strong>{`(${moment.utc(data.DataHoraInicio).startOf('hours').from(moment.utc())}) `}</Text>
   return (
     <List.Item actions={[<IconTextDetailing />, <IconTextRelease />]}>
       <List.Item.Meta
@@ -56,10 +56,6 @@ function ListItem({ data }) {
             {`${moment.utc(data.DataHoraInicio).format('L')} ${moment
               .utc(data.DataHoraInicio)
               .format('LTS')} `}
-            <Text strong>{`(${moment
-              .utc(data.DataHoraInicio)
-              .startOf('hours')
-              .fromNow()}) `}</Text>
             <div>
               <Text mark>
                 {data.Detalhado ? (

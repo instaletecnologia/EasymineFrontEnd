@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
 import SelectMaintenanceOccurrence from '@/components/Maintenances/SelectMaintenanceOccurrence';
-import InputNumberPlate from '@/components/Users/InputNumberPlate';
+import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
 // import TextAreaNote from '@/components/Note';
 
@@ -97,7 +97,7 @@ function MaintenanceForm({ form }) {
                 message: formatMessage({ id: 'user.plate' }),
               },
             ],
-          })(<InputNumberPlate />)}
+          })(<InputNumberPlateMaintenance />)}
         </FormItem>
 
         <FormItem>

@@ -8,7 +8,7 @@ import moment from 'moment';
 import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
 import SelectMaintenanceFailureClass from '@/components/Maintenances/SelectMaintenanceFailureClass';
 import SelectMaintenanceItem from '@/components/Maintenances/SelectMaintenanceItem';
-import SelectUserMechanical from '@/components/Maintenances/SelectUserMechanical';
+import SelectUserMechanical from '@/components/Maintenances/Users/SelectUserMechanical';
 import SelectMaintenanceReason from '@/components/Maintenances/SelectMaintenanceReason';
 import SelectMaintenanceOrder from '@/components/Maintenances/SelectMaintenanceOrder';
 import InputNumberPlate from '@/components/Users/InputNumberPlate';
