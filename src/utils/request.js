@@ -26,9 +26,6 @@ const codeMessage = {
   503: 'Service is unavailable, the server is temporarily overloaded or maintained. ',
   504: 'Gateway timed out. ',
 };
-/**
- * 异常处理程序
- */
 
 const errorHandler = async error => {
   const { response } = error;

@@ -56,7 +56,7 @@ function Header() {
     <Badge
       key={count}
       count={count}
-      style={{ backgroundColor: bkColor, color: '#fff', borderColor: bkColor }}
+      style={{ backgroundColor: bkColor, color: '#000', borderColor: bkColor }}
     >
       <Text strong style={{ margin: '12px', fontSize: 11, fontWeight: 'bold' }}>
         {description}
@@ -76,7 +76,7 @@ function Header() {
               key={item.count}
               description={item.description}
               count={item.count}
-              bkColor={item.count < 11 ? '#87d068' : 'red'}
+              bkColor={item.count < 11 ? '#fcaf16' : 'red'}
             />
           ))}
         </Col>

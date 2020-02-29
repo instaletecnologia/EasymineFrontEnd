@@ -26,6 +26,7 @@ function SelectUserMechanical({ onChange, value }) {
     <>
       <Select
         showSearch
+        size="large"
         style={{ width: 300 }}
         placeholder={formatMessage({ id: 'user.mechanical.placeholder' })}
         optionFilterProp="children"

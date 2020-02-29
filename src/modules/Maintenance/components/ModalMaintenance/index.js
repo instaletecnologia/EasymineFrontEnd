@@ -1,10 +1,11 @@
+/* eslint-disable import/extensions */
 import React, { memo, useState } from 'react';
 import { Input, Form, Button, Modal } from 'antd';
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import _ from 'lodash';
 
-import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
+import SelectEquipamentTagNoMaintenance from '@/components/Maintenances/Equipments/SelectEquipamentTagNoMaintenance';
 import SelectMaintenanceOccurrence from '@/components/Maintenances/SelectMaintenanceOccurrence';
 import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
@@ -59,6 +60,7 @@ function MaintenanceForm({ form }) {
     <Modal
       width={420}
       visible={visible}
+      // style={{ top: 10 }}
       title={formatMessage({ id: 'maintenance.inclusion' })}
       onCancel={close}
       destroyOnClose
@@ -86,7 +88,7 @@ function MaintenanceForm({ form }) {
                 message: formatMessage({ id: 'equipment.tag.placeholder' }),
               },
             ],
-          })(<SelectEquipamentTag noInMaintenance />)}
+          })(<SelectEquipamentTagNoMaintenance />)}
         </FormItem>
 
         <FormItem>

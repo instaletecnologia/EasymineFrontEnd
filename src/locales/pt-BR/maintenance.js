@@ -14,4 +14,10 @@ export default {
   'maintenance.error.not.allocated.activity': 'Equipamento não está alocado em uma atividade!',
   'maintenance.error.not.possible.insert.details':
     'Não foi possivel realizar a inserção do detalhamento!',
+  'maintenance.validation.detailing-before-maintenance':
+    'Não permitido! A data do detalhamento é menor que a data inicio da manutenção.',
+  'maintenance.validation.detailing-after-now':
+    'Não permitido! A data do detalhamento é maior que a data atual do servidor.',
+  'maintenance.validation.detailing-repeat-maintenance':
+    'Não permitido! A data do detalhamento ja existe.',
 };

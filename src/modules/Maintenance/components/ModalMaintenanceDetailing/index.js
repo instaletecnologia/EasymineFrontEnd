@@ -11,7 +11,7 @@ import SelectMaintenanceItem from '@/components/Maintenances/SelectMaintenanceIt
 import SelectUserMechanical from '@/components/Maintenances/Users/SelectUserMechanical';
 import SelectMaintenanceReason from '@/components/Maintenances/SelectMaintenanceReason';
 import SelectMaintenanceOrder from '@/components/Maintenances/SelectMaintenanceOrder';
-import InputNumberPlate from '@/components/Users/InputNumberPlate';
+import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
 
 import { add } from './services/api';
 
@@ -68,8 +68,8 @@ function MaintenanceDetailingForm({ form }) {
   };
 
   async function isDateValidet(value) {
-    const dateNow = moment().add(1, 'seconds');
-    const newValue = moment().add(-1, 'seconds');
+    const dateNow = moment.utc();
+    const newValue = moment.utc();
 
     if (moment(newValue).isAfter(dateNow)) {
       openNotificationWithIcon(
@@ -85,12 +85,7 @@ function MaintenanceDetailingForm({ form }) {
         formatMessage({ id: 'date.notification.notAllowed' }),
         formatMessage({ id: 'date.validet.dateLessStartMaintence' }),
       );
-      // console.log('value', newValue);
-      // console.log('dateNow', dateStart);
-      // console.log(
-      //   'moment(value).isSameOrBefore(moment(dateStart))',
-      //   moment(newValue).isSameOrBefore(moment(dateStart)),
-      // );
+
       return false;
     }
     return true;
@@ -104,13 +99,13 @@ function MaintenanceDetailingForm({ form }) {
         getFieldsError();
         return;
       }
-      const dataHora = _.get(values, 'DataHora');
+      const dataHora = _.get(values, 'DateDetailing');
       if ((await isDateValidet(dataHora)) === false) {
         setLoading(false);
         getFieldsError();
         return;
       }
-      await add({ ...values, ControleHoraID, OcorrenciaID });
+      await add({ ...values, ControleHoraID, OcorrenciaID, dataHora });
       await close();
     });
   }
@@ -156,8 +151,8 @@ function MaintenanceDetailingForm({ form }) {
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator('DataDetalhamento', {
-            initialValue: moment(dateStart),
+          {getFieldDecorator('DateDetailing', {
+            initialValue: moment.utc(dateStart),
             rules: [
               {
                 required: true,
@@ -175,7 +170,7 @@ function MaintenanceDetailingForm({ form }) {
                 message: formatMessage({ id: 'user.plate' }),
               },
             ],
-          })(<InputNumberPlate />)}
+          })(<InputNumberPlateMaintenance />)}
         </FormItem>
 
         <FormItem>

@@ -22,7 +22,7 @@ const GlobalFooter = ({ className, links, copyright }) => {
         </div>
       )}
       <div className={styles.copyright}>
-        Copyright <Icon type="copyright" /> 2019 Instale tecnologia
+        Copyright <Icon type="copyright" /> 2020 Instale tecnologia
       </div>
     </footer>
   );

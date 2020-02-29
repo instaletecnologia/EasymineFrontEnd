@@ -1,5 +1,5 @@
 export default {
- navTheme: 'dark',
+  navTheme: 'dark',
   primaryColor: '#0C1331',
   layout: 'sidemenu',
   contentWidth: 'Fluid',
@@ -10,7 +10,7 @@ export default {
     disableLocal: true,
   },
   title: 'Easymine',
-  pwa: false,
+  pwa: true,
   iconfontUrl: '',
   collapse: true,
   conceptionColors: {
@@ -18,4 +18,4 @@ export default {
     first_iatf: '#0C1331',
     resync: '#cd1041',
   },
-}
+};

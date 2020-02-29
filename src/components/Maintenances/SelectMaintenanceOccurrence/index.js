@@ -31,6 +31,7 @@ function SelectMaintenanceOccurrence({ onChange, equipmentId = null, maintenance
       <Select
         showSearch
         disabled={!maintenanceType || !equipmentId || loading}
+        size="large"
         style={{ width: 300 }}
         placeholder={formatMessage({ id: 'ocorrence.Descrition' })}
         optionFilterProp="children"

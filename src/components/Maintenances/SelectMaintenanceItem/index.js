@@ -35,12 +35,16 @@ function SelectMaintenanceItem({
     <>
       <Select
         showSearch
+        size="large"
         style={{ width: 300 }}
         placeholder={formatMessage({ id: 'maintenance.placeholder.Maintenanceitem' })}
         optionFilterProp="children"
         onChange={onChange}
         filterOption={(input, option) =>
-          option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          option.props.children
+            .toString()
+            .toLowerCase()
+            .indexOf(input.toString().toLowerCase()) >= 0
         }
         loading={loading}
       >

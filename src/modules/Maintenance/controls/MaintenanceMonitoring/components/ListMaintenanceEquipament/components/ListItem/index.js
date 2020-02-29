@@ -23,15 +23,15 @@ function ListItem({ data }) {
   }
 
   const IconTextDetailing = () => (
-    <span onClick={handleVisibleDetailing} style={{ fontSize: '16px', color: '#000' }}>
-      <Icon type="snippets" theme="outlined" />
+    <span onClick={handleVisibleDetailing} style={{ fontSize: '18px' }}>
+      <Icon type="snippets" theme="filled" />
       {formatMessage({ id: 'component.tagSelect.Detail' })}
     </span>
   );
 
   const IconTextRelease = () => (
-    <span onClick={handleVisibleRelease} style={{ fontSize: '16px', color: '#000' }}>
-      <Icon type="like-o" theme="outlined" />
+    <span onClick={handleVisibleRelease} style={{ fontSize: '18px' }}>
+      <Icon type="like-o" theme="filled" />
       {formatMessage({ id: 'component.tagSelect.Release' })}
     </span>
   );
@@ -39,13 +39,8 @@ function ListItem({ data }) {
   return (
     <List.Item actions={[<IconTextDetailing />, <IconTextRelease />]}>
       <List.Item.Meta
-        avatar={<Avatar src={`/images/equipment-${data.TAGPREFIXO}-enabled-2d.png`} />}
-        title={
-          <a style={{ fontSize: '20px', color: '#000' }} href={data.Tag}>
-            {' '}
-            {data.Tag}
-          </a>
-        }
+        // avatar={<Avatar src={`/images/equipment-${data.TAGPREFIXO}-enabled-2d.png`} />}
+        title={<a style={{ fontSize: '18px' }}> {data.Tag}</a>}
         description={
           <div>
             <Text strong>{formatMessage({ id: 'equipment.fleet' })}</Text>
