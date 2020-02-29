@@ -26,10 +26,10 @@ function ListMaintenanceEquipament({ maintenanceType, maintenanceTypeDescription
   const BadgeCountEquipament = ({ description, count }) => (
     <Badge
       count={count}
-      style={{ backgroundColor: '#0d0d0d', color: '#fff', borderColor: '#0d0d0d' }}
+      style={{ backgroundColor: '#fcaf16', color: '#0d0d0d', borderColor: '#fcaf16' }}
       title={formatMessage({ id: 'expressions.AmountOfEquipment' })}
     >
-      <Title level={3}>{description}</Title>
+      <Title level={4}>{description}</Title>
     </Badge>
   );
 
@@ -37,10 +37,7 @@ function ListMaintenanceEquipament({ maintenanceType, maintenanceTypeDescription
     <div className={classNames(classNames, styles.div)}>
       <div style={{ backgroundColor: color, padding: '0.5%', paddingLeft: '20%' }}>
         <BadgeCountEquipament description={maintenanceTypeDescription} count={data.length} />
-        <span
-          onClick={createMaintenance}
-          style={{ paddingLeft: '20%', fontSize: '16px', color: '#000' }}
-        >
+        <span onClick={createMaintenance} style={{ paddingLeft: '20%', fontSize: '18px' }}>
           <Icon type="tool" theme="filled" />
           {formatMessage({ id: 'component.tagSelect.Add' })}
         </span>

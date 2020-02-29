@@ -1,21 +1,24 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Button, Modal, Form, Input } from 'antd';
+import { Button, DatePicker, Modal, Form, Input, notification } from 'antd';
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import _ from 'lodash';
+import moment from 'moment';
 
 import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
 import SelectMaintenanceFailureClass from '@/components/Maintenances/SelectMaintenanceFailureClass';
 import SelectMaintenanceItem from '@/components/Maintenances/SelectMaintenanceItem';
-import SelectUserMechanical from '@/components/Maintenances/SelectUserMechanical';
+import SelectUserMechanical from '@/components/Maintenances/Users/SelectUserMechanical';
 import SelectMaintenanceReason from '@/components/Maintenances/SelectMaintenanceReason';
 import SelectMaintenanceOrder from '@/components/Maintenances/SelectMaintenanceOrder';
+import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
 
 import { add } from './services/api';
 
 import model from './model';
 
 const { TextArea } = Input;
+
 const FormItem = Form.Item;
 
 function MaintenanceDetailingForm({ form }) {
@@ -32,18 +35,22 @@ function MaintenanceDetailingForm({ form }) {
     setFieldsValue,
     getFieldValue,
   } = form;
-  const ClasseFalhaID = getFieldValue('ClasseFalhaID');
-  const controleHoraID = _.get(maintenance, 'ControleHoraID');
+
+  const classeFalhaID = getFieldValue('ClasseFalhaID');
+  const equipamentoModeloID = _.get(maintenance, 'EquipamentoModeloID');
+  const dateStart = _.get(maintenance, 'DataHoraInicio');
+  const ControleHoraID = _.get(maintenance, 'ControleHoraID');
+  const OcorrenciaID = _.get(maintenance, 'OcorrenciaID');
 
   useEffect(() => {
     if (visible) {
       setFieldsValue({
         EquipamentoID: _.get(maintenance, 'EquipamentoID'),
         Horimetro: _.get(maintenance, 'Horímetro'),
-        ControleHoraID: _.get(maintenance, 'ControleHoraID'),
       });
     }
   }, [visible]);
+
   function close() {
     setLoading(false);
     resetFields();
@@ -52,6 +59,38 @@ function MaintenanceDetailingForm({ form }) {
     });
     dispatch(closeMaintenanceDetailing());
   }
+
+  const openNotificationWithIcon = (type, returnMenssage, returnDescription) => {
+    notification[type]({
+      message: returnMenssage,
+      description: returnDescription,
+    });
+  };
+
+  async function isDateValidet(value) {
+    const dateNow = moment.utc();
+    const newValue = moment.utc();
+
+    if (moment(newValue).isAfter(dateNow)) {
+      openNotificationWithIcon(
+        'error',
+        formatMessage({ id: 'date.notification.notAllowed' }),
+        formatMessage({ id: 'date.validet.dateGreaterCurrentDate' }),
+      );
+      return false;
+    }
+    if (moment(newValue).isSameOrBefore(moment(dateStart))) {
+      openNotificationWithIcon(
+        'error',
+        formatMessage({ id: 'date.notification.notAllowed' }),
+        formatMessage({ id: 'date.validet.dateLessStartMaintence' }),
+      );
+
+      return false;
+    }
+    return true;
+  }
+
   async function onSubmit() {
     setLoading(true);
     validateFields(async (err, values) => {
@@ -60,7 +99,13 @@ function MaintenanceDetailingForm({ form }) {
         getFieldsError();
         return;
       }
-      await add(values);
+      const dataHora = _.get(values, 'DateDetailing');
+      if ((await isDateValidet(dataHora)) === false) {
+        setLoading(false);
+        getFieldsError();
+        return;
+      }
+      await add({ ...values, ControleHoraID, OcorrenciaID, dataHora });
       await close();
     });
   }
@@ -72,11 +117,10 @@ function MaintenanceDetailingForm({ form }) {
   });
 
   return (
-    // <div className={classNames(classNames, styles.div)}>
     <Modal
-      width={380}
+      width={420}
       visible={visible}
-      title={`${formatMessage({ id: 'maintenance.breakdown' })} - ${controleHoraID}`}
+      title={`${formatMessage({ id: 'maintenance.breakdown' })} - ${ControleHoraID}`}
       onCancel={close}
       destroyOnClose
       footer={[
@@ -107,6 +151,29 @@ function MaintenanceDetailingForm({ form }) {
         </FormItem>
 
         <FormItem>
+          {getFieldDecorator('DateDetailing', {
+            initialValue: moment.utc(dateStart),
+            rules: [
+              {
+                required: true,
+                message: formatMessage({ id: 'date.title' }),
+              },
+            ],
+          })(<DatePicker showTime placeholder={formatMessage({ id: 'date.title' })} />)}
+        </FormItem>
+
+        <FormItem>
+          {getFieldDecorator('UsuarioID', {
+            rules: [
+              {
+                required: true,
+                message: formatMessage({ id: 'user.plate' }),
+              },
+            ],
+          })(<InputNumberPlateMaintenance />)}
+        </FormItem>
+
+        <FormItem>
           {getFieldDecorator('ClasseFalhaID', {
             rules: [
               {
@@ -127,8 +194,8 @@ function MaintenanceDetailingForm({ form }) {
             ],
           })(
             <SelectMaintenanceItem
-              EquipamentoModeloID={_.get(maintenance, 'EquipamentoModeloID')}
-              ClasseFalhaID={ClasseFalhaID}
+              EquipamentoModeloID={equipamentoModeloID}
+              ClasseFalhaID={classeFalhaID}
             />,
           )}
         </FormItem>
@@ -159,7 +226,7 @@ function MaintenanceDetailingForm({ form }) {
           {getFieldDecorator('OrdemManutencaoID', {
             rules: [
               {
-                required: true,
+                required: false,
                 message: formatMessage({ id: 'maintenance.select.Order' }),
               },
             ],
@@ -171,8 +238,8 @@ function MaintenanceDetailingForm({ form }) {
           )}
         </FormItem>
 
-        <FormItem>
-          {getFieldDecorator('Observacoes', {
+        <FormItem initialValue={null}>
+          {getFieldDecorator('Observacao', {
             rules: [
               {
                 required: true,
@@ -180,16 +247,6 @@ function MaintenanceDetailingForm({ form }) {
               },
             ],
           })(<TextArea maxLength={255} placeholder="Informe uma observação..." />)}
-        </FormItem>
-
-        <FormItem>
-          {getFieldDecorator('ControleHoraID', {
-            rules: [
-              {
-                required: true,
-              },
-            ],
-          })(<></>)}
         </FormItem>
       </Form>
     </Modal>

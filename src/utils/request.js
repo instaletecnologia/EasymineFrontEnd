@@ -26,9 +26,6 @@ const codeMessage = {
   503: 'Service is unavailable, the server is temporarily overloaded or maintained. ',
   504: 'Gateway timed out. ',
 };
-/**
- * 异常处理程序
- */
 
 const errorHandler = async error => {
   const { response } = error;
@@ -39,28 +36,37 @@ const errorHandler = async error => {
     const { status, url } = response;
     switch (status) {
       case 200:
-        return notification.success({
+        notification.success({
           message: formatMessage({ id: 'app.settings.notification.success' }),
           description: response.message,
         });
-      case 404:
-        return notification.warning({
-          message: `${status}`,
-          description: formatMessage({ id: `${dataResult.message}` }),
-        });
+        break;
       case 401:
         // @HACK
         // eslint-disable-next-line no-underscore-dangle
         window.g_app._store.dispatch({
           type: 'login/logout',
         });
-        return response;
+        break;
+
+      case 404:
+        notification.warning({
+          message: `${status}`,
+          description: formatMessage({ id: `${dataResult.message}` }),
+        });
+        break;
+      case 405:
+        window.g_app._store.dispatch({
+          type: 'login/logout',
+        });
+        break;
 
       default:
         notification.error({
           message: `Request error ${status}: ${url}`,
           description: errorText,
         });
+        break;
     }
   } else if (!response) {
     notification.error({

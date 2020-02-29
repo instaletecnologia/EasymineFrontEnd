@@ -2,7 +2,7 @@ module.exports = {
   path: '/dispatch',
   name: 'Despacho',
   authority: ['MODULE', '-3'],
-  icon: 'global',
+  icon: 'fire',
   routes: [
     {
       path: '/dispatch/controls',
@@ -13,7 +13,7 @@ module.exports = {
         {
           path: '/dispatch/controls/geoprocessamento',
           name: 'Geoprocessamento',
-          icon: 'tool',
+          icon: 'environment',
           component: './../modules/Dispatch/controls/GeoProcess',
         },
       ],

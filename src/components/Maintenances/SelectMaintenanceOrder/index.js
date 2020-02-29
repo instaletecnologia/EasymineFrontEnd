@@ -15,7 +15,6 @@ function SelectMaintenanceOrder({
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
 
     if (EquipamentoID && idCategoriasTempo) {
@@ -36,12 +35,16 @@ function SelectMaintenanceOrder({
     <>
       <Select
         showSearch
+        size="large"
         style={{ width: 300 }}
         placeholder={formatMessage({ id: 'maintenance.select.Order' })}
         optionFilterProp="children"
         onChange={onChange}
         filterOption={(input, option) =>
-          option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          option.props.children
+            .toString()
+            .toLowerCase()
+            .indexOf(input.toString().toLowerCase()) >= 0
         }
         loading={loading}
       >

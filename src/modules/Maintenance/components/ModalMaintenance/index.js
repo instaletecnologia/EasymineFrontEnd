@@ -1,13 +1,15 @@
+/* eslint-disable import/extensions */
 import React, { memo, useState } from 'react';
 import { Input, Form, Button, Modal } from 'antd';
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import _ from 'lodash';
 
-import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
+import SelectEquipamentTagNoMaintenance from '@/components/Maintenances/Equipments/SelectEquipamentTagNoMaintenance';
 import SelectMaintenanceOccurrence from '@/components/Maintenances/SelectMaintenanceOccurrence';
-import InputNumberPlate from '@/components/Users/InputNumberPlate';
+import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
+// import TextAreaNote from '@/components/Note';
 
 import { add } from './services/api';
 
@@ -56,8 +58,9 @@ function MaintenanceForm({ form }) {
 
   return (
     <Modal
-      width={380}
+      width={420}
       visible={visible}
+      // style={{ top: 10 }}
       title={formatMessage({ id: 'maintenance.inclusion' })}
       onCancel={close}
       destroyOnClose
@@ -85,7 +88,7 @@ function MaintenanceForm({ form }) {
                 message: formatMessage({ id: 'equipment.tag.placeholder' }),
               },
             ],
-          })(<SelectEquipamentTag noInMaintenance />)}
+          })(<SelectEquipamentTagNoMaintenance />)}
         </FormItem>
 
         <FormItem>
@@ -96,7 +99,7 @@ function MaintenanceForm({ form }) {
                 message: formatMessage({ id: 'user.plate' }),
               },
             ],
-          })(<InputNumberPlate />)}
+          })(<InputNumberPlateMaintenance />)}
         </FormItem>
 
         <FormItem>
@@ -127,10 +130,10 @@ function MaintenanceForm({ form }) {
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator('Observacoes', {
+          {getFieldDecorator('Observacao', {
             rules: [
               {
-                required: true,
+                required: false,
                 message: formatMessage({ id: 'app.settings.Note' }),
               },
             ],
@@ -159,6 +162,6 @@ export function closeMaintenance() {
 }
 
 export const MAINTENANCE_TYPE = {
-  HMC: 6,
-  HMP: 7,
+  HMC: 7,
+  HMP: 6,
 };

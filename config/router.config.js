@@ -1,9 +1,9 @@
 // const OPERATION_MODULE = require('../src/modules/Operation/route.json');
 // const MAINTENANCE_MODULE = require('../src/modules/Maintenance/route.json');
 
-import OPERATION_MODULE from '@/modules/Operation/menu.js';
+//import OPERATION_MODULE from '@/modules/Operation/menu.js';
 import MAINTENANCE_MODULE from '@/modules/Maintenance/menu.js';
-import DISPATCH_MODULE from '@/modules/Dispatch/menu.js';
+// import DISPATCH_MODULE from '@/modules/Dispatch/menu.js';
 
 export default [
   {
@@ -39,15 +39,15 @@ export default [
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
     routes: [
-      {
-        path: '/',
-        name: 'Geoprocessamento',
-        icon: 'smile',
-        component: './../modules/Dispatch/controls/GeoProcess',
-      },
-      OPERATION_MODULE,
+      // {
+      //   path: '/',
+      //   name: 'Geoprocessamento',
+      //   icon: 'smile',
+      //   component: './../modules/Dispatch/controls/GeoProcess',
+      // },
+      // OPERATION_MODULE,
       MAINTENANCE_MODULE,
-      DISPATCH_MODULE,
+      // DISPATCH_MODULE,
       /*
        * END Modules
        */

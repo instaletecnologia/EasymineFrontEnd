@@ -4,11 +4,13 @@ import menu from './en-US/menu';
 import pwa from './en-US/pwa';
 import settingDrawer from './en-US/settingDrawer';
 import settings from './en-US/settings';
+import login from './en-US/login';
 import user from './en-US/user';
 import maintenance from './en-US/maintenance';
 import equipment from './en-US/equipment';
 import expressions from './en-US/expressions';
 import ocorrence from './en-US/ocorrence';
+import date from './en-US/date';
 
 export default {
   'navBar.lang': 'Languages',
@@ -22,9 +24,11 @@ export default {
   ...settings,
   ...pwa,
   ...component,
+  ...login,
   ...user,
   ...maintenance,
   ...equipment,
   ...expressions,
   ...ocorrence,
+  ...date,
 };

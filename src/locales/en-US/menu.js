@@ -47,5 +47,8 @@ export default {
   'menu.editor.flow': 'Flow Editor',
   'menu.editor.mind': 'Mind Editor',
   'menu.editor.koni': 'Koni Editor',
-  'menu.maintenance.monitoring': 'maintenance monitoring',
+  'menu.Optional': 'Optional',
+  'menu.maintenance': 'Maintenance',
+  'menu.maintenance.controls': 'Controls',
+  'menu.maintenance.controls.monitoring': 'Monitoring',
 };

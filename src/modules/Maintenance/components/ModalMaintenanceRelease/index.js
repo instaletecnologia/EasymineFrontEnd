@@ -5,8 +5,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import _ from 'lodash';
 
 import SelectEquipamentTag from '@/components/Equipments/SelectEquipamentTag';
-import InputNumberPlate from '@/components/Users/InputNumberPlate';
-import SelectUserMechanical from '@/components/Maintenances/SelectUserMechanical';
+import InputNumberPlateMaintenance from '@/components/Maintenances/Users/InputNumberPlateMaintenance';
+import SelectUserMechanical from '@/components/Maintenances/Users/SelectUserMechanical';
 import InputNumberHorimetro from '@/components/Equipments/InputNumberHorimetro';
 
 import { release } from './services/api';
@@ -23,7 +23,7 @@ function ModalMaintenanceReleaseForm({ form }) {
   const maintenance = useSelector(state => _.get(state[model.namespace], 'params'));
 
   const { validateFields, resetFields, getFieldDecorator, getFieldsError, setFieldsValue } = form;
-  const controleHoraID = _.get(maintenance, 'ControleHoraID');
+  const ControleHoraID = _.get(maintenance, 'ControleHoraID');
 
   useEffect(() => {
     if (visible) {
@@ -52,7 +52,8 @@ function ModalMaintenanceReleaseForm({ form }) {
         getFieldsError();
         return;
       }
-      await release(values);
+
+      await release({ ...values, ControleHoraID });
       await close();
     });
   }
@@ -65,9 +66,9 @@ function ModalMaintenanceReleaseForm({ form }) {
 
   return (
     <Modal
-      width={380}
+      width={420}
       visible={visible}
-      title={`${formatMessage({ id: 'maintenance.release' })} - ${controleHoraID}`}
+      title={`${formatMessage({ id: 'maintenance.release' })} - ${ControleHoraID}`}
       onCancel={close}
       destroyOnClose
       footer={[
@@ -105,7 +106,7 @@ function ModalMaintenanceReleaseForm({ form }) {
                 message: formatMessage({ id: 'user.plate' }),
               },
             ],
-          })(<InputNumberPlate UserPermissionID={15} />)}
+          })(<InputNumberPlateMaintenance />)}
         </FormItem>
 
         <FormItem>
@@ -134,21 +135,11 @@ function ModalMaintenanceReleaseForm({ form }) {
           {getFieldDecorator('Observacoes', {
             rules: [
               {
-                required: true,
+                required: false,
                 message: 'Observação',
               },
             ],
           })(<TextArea maxLength={255} placeholder="Informe uma observação..." />)}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator('ControleHoraID', {
-            rules: [
-              {
-                required: true,
-                message: formatMessage({ id: 'equipment.tag.placeholder' }),
-              },
-            ],
-          })(<></>)}
         </FormItem>
       </Form>
     </Modal>

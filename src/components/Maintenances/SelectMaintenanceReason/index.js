@@ -10,7 +10,6 @@ function SelectMaintenanceReason({ onChange, value }) {
   const [data, setData] = useState([]);
 
   async function loadData() {
-    onChange(null);
     setData([]);
     setLoading(true);
     const result = await fetchSelect();
@@ -28,12 +27,16 @@ function SelectMaintenanceReason({ onChange, value }) {
     <>
       <Select
         showSearch
+        size="large"
         style={{ width: 300 }}
         placeholder={formatMessage({ id: 'maintenance.select.Reason' })}
         optionFilterProp="children"
         onChange={onChange}
         filterOption={(input, option) =>
-          option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          option.props.children
+            .toString()
+            .toLowerCase()
+            .indexOf(input.toString().toLowerCase()) >= 0
         }
         loading={loading}
       >

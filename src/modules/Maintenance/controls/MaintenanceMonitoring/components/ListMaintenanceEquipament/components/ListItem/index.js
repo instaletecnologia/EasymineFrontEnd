@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import { openMaintenanceDetailing } from '@/modules/Maintenance/components/ModalMaintenanceDetailing';
 import { openMaintenanceRelease } from '@/modules/Maintenance/components/ModalMaintenanceRelease';
+import { standardizationWords } from '@/utils/string';
 
 const { Text } = Typography;
 
@@ -22,46 +23,40 @@ function ListItem({ data }) {
   }
 
   const IconTextDetailing = () => (
-    <span onClick={handleVisibleDetailing} style={{ fontSize: '16px', color: '#000' }}>
-      <Icon type="snippets" theme="outlined" />
+    <span onClick={handleVisibleDetailing} style={{ fontSize: '18px' }}>
+      <Icon type="snippets" theme="filled" />
       {formatMessage({ id: 'component.tagSelect.Detail' })}
     </span>
   );
 
   const IconTextRelease = () => (
-    <span onClick={handleVisibleRelease} style={{ fontSize: '16px', color: '#000' }}>
-      <Icon type="like-o" theme="outlined" />
+    <span onClick={handleVisibleRelease} style={{ fontSize: '18px' }}>
+      <Icon type="like-o" theme="filled" />
       {formatMessage({ id: 'component.tagSelect.Release' })}
     </span>
   );
-
+  // <Text strong>{`(${moment.utc(data.DataHoraInicio).startOf('hours').from(moment.utc())}) `}</Text>
   return (
     <List.Item actions={[<IconTextDetailing />, <IconTextRelease />]}>
       <List.Item.Meta
-        // avatar={ <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> }
-        title={
-          <a style={{ fontSize: '20px', color: '#000' }} href={data.Tag}>
-            {' '}
-            {data.Tag}
-          </a>
-        }
+        // avatar={<Avatar src={`/images/equipment-${data.TAGPREFIXO}-enabled-2d.png`} />}
+        title={<a style={{ fontSize: '18px' }}> {data.Tag}</a>}
         description={
           <div>
             <Text strong>{formatMessage({ id: 'equipment.fleet' })}</Text>
-            {` ${data.EquipamentoModeloDescricao} `}
+            {` ${standardizationWords(data.EquipamentoModeloDescricao).substring(20, 0)}... `}
             <Text strong>{formatMessage({ id: 'expressions.It_s_at' })}</Text>
-            {` ${data.Ocorrencia} `}
+            {` ${standardizationWords(data.Ocorrencia).substring(22, 0)}... `}
             <Text strong>{formatMessage({ id: 'expressions.Since' })}</Text>{' '}
-            {`${moment(data.DataHoraInicio).format('L')} ${moment(data.DataHoraInicio).format(
-              'LTS',
-            )} `}
-            <Text strong>{`(${moment(data.DataHoraInicio)
-              .startOf('day')
-              .fromNow()}) `}</Text>
+            {`${moment.utc(data.DataHoraInicio).format('L')} ${moment
+              .utc(data.DataHoraInicio)
+              .format('LTS')} `}
             <div>
               <Text mark>
                 {data.Detalhado ? (
-                  formatMessage({ id: 'expressions.Detailed' })`: ${data.Detalhado}`
+                  `${formatMessage({ id: 'maintenance.detailed.item' })}: ${standardizationWords(
+                    data.Detalhado,
+                  )}`
                 ) : (
                   <span>{formatMessage({ id: 'expressions.NoDetailsFound' })}</span>
                 )}

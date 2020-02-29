@@ -1,5 +1,6 @@
 import { Row, Col } from 'antd';
 import React, { memo, useEffect, useState } from 'react';
+
 import { useSelector, useDispatch } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 
@@ -10,31 +11,25 @@ import ModalMaintenance from '@/modules/Maintenance/components/ModalMaintenance'
 import ModalMaintenanceDetailing from '@/modules/Maintenance/components/ModalMaintenanceDetailing';
 import ModalMaintenanceRelease from '@/modules/Maintenance/components/ModalMaintenanceRelease';
 
-import model from './models/MaintenanceMonitoringModel';
-
-export function updateMonitoring() {
-  return {
-    type: `${model.namespace}/fetch`,
-  };
-}
+import styles from './index.less';
 
 function MaintenanceMonitoring() {
-  const data = useSelector(state => state.MaintenanceMonitoring.data);
+  const data = useSelector(state => state.MaintenanceMonitoring.data, []);
   const [dataHMC, setDataHMC] = useState([]);
   const [dataHMP, setDataHMP] = useState([]);
 
   let timer = null;
   const dispatch = useDispatch();
 
-  function loadData() {
-    dispatch(updateMonitoring());
+  async function loadData() {
+    dispatch({
+      type: 'MaintenanceMonitoring/fetch',
+    });
   }
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      setDataHMC(data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 3));
-      setDataHMP(data.filter(el => el.idCategoriasTempo === 7 || el.ParentID === 7));
-    }
+    setDataHMC(data.filter(el => el.idCategoriasTempo === 7 || el.ParentID === 7));
+    setDataHMP(data.filter(el => el.idCategoriasTempo === 6 || el.ParentID === 6));
   }, [data]);
 
   useEffect(() => {
@@ -46,15 +41,15 @@ function MaintenanceMonitoring() {
   }, []);
 
   return (
-    <div>
-      <Header data={data} />
+    <div className={styles.main}>
+      <Header />
       <Row>
         <Col xs={12}>
           <ListMaintenanceEquipament
             maintenanceType="HMC"
             maintenanceTypeDescription={formatMessage({ id: 'maintenance.corretive' })}
             // color="#DD7875"
-            color="#ca6048"
+            color="#9b2a23"
             data={dataHMC}
           />
         </Col>

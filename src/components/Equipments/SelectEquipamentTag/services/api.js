@@ -5,9 +5,3 @@ export async function fetchSelectEquipmentTag() {
     method: 'GET',
   });
 }
-
-export async function fetchSelectEquipmentTagNoInMaintenance() {
-  return request('equipments-select-tag-not-in-maintenance', {
-    method: 'GET',
-  });
-}
